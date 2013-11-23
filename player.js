@@ -5,7 +5,8 @@ function Node(obj) {
 
 function LinkedList() {
 	this.head = {};
-	val cur, add;
+	var cur;
+	var add;
 	
 	this.addNode = function(obj) {
 		if (this.head == {})
@@ -114,15 +115,20 @@ Player = Class.create({
 		var ingredients = new HashTable({});
 	},
 
-	purchaseItem: function(cost) {
+	addMoney: function(dolla) {
+		this.money += dolla;
+	},
+	
+	purchaseItem: function(key, toAdd, cost) {
 		this.money -= cost;
-	}
-
+		this.addIngredient(key, toAdd);
+	},
+	
 	addIngredient: function(key, toAdd) {
-		val addIngr = new Node(toAdd);
-		val linked;
+		var addIngr = new Node(toAdd);
+		var linked;
 
-		if ingredients.hasItem(key) 
+		if (ingredients.hasItem(key))
 			linked = ingredients.getItem(key);
 		else
 			linked = new LinkedList();
