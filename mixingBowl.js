@@ -1,57 +1,64 @@
-MixingBowl = Class.create({
-   initialize: function(x, y) {
-      Sprite.call(this, 100, 100);
-      // this.image = game.assets["images/mixingBowl.png"];
-      // this.frame = 0;
+enchant();
 
-      var contents = {};
-      var count = 0;
+MixingBowl = Class.create(Sprite, {
+   initialize: function(x, y, world, person, ranKid) {
+      Sprite.call(this, 125, 100);
+      this.x = x;
+      this.y = y;
+      this.image = world.assets["bowls.jpg"];
+      this.scale(.5, .5);
+      this.frame = 0;
+      this.player = person;
+      this.kid = ranKid;
 
-      this.addEventListener('enterframe', function() {
-         if (count === 3) {
-            var recipeFound = false;
-
-            for (var i in desserts) {
-               if (this.equals(desserts[i].recipe)) {
-                  this.image = desserts[i].image;
-                  recipeFound = true;
-                  break;
-               }
-            }
-
-            if (!recipeFound) { // bad combo
-               this.frame = 3;
-            }
-         }
-      });
-   },
-
-   add: function(ingredient) {
-      if (this.contents[ingredient] === undefined) {
-         this.contents[ingredient] = 1;
-      }
-      else {
-         this.contents[ingredient]++;
-      }
-
-      this.count++;
-
-      if (this.frame < 2) {
-         this.frame++;
-      }
-   },
-
-   empty: function() {
-      // this.image = game.assets["images/mixingBowl.png"];
-      // this.frame = 0;
-      this.contents = {};
+      this.contents = [];
       this.count = 0;
    },
-
-   equals: function(recipe) {
-      for (var ingredient in this.contents) {
-         if (this.contents[ingredient] !== recipe[ingredient]) {
-            return false;
+   
+   onenterframe: function() {
+      if (this.count == 3) {
+         this.frame = 0;
+         this.checkRecipe();
+      }
+   },
+   
+   checkRecipe: function() {
+      var item = this.kid.getDessert();
+      var number = 0;
+      
+      for (var i = 0; i < this.count; i++) {
+         for (var j = 0; j < this.count; j++) {
+            var str1 = "" + this.contents[j];
+            var str2 = "" + item.insides[i];
+            console.log(str2 + " and " + str1);
+            if (str2 === str1) {
+               this.contents[j] = 0;
+               number++;
+               break;
+            }
+         }
+      }
+      if (number == 3){
+         console.log("WIN");
+         //add hp/points
+      }
+         
+      this.count = 0
+      this.contents.pop();
+      this.contents.pop();
+      this.contents.pop();
+   },
+   
+   
+   ontouchend: function() {
+      //search in player for ingredient that was touched.
+      var list = this.player.getIngredients();
+      for (var i = 0; i < 9; i++) {
+         if (list[i].clicked) {
+            this.contents.push(list[i].name);
+            list[i].clicked = false;
+            this.frame++;
+            this.count++;
          }
       }
    }
