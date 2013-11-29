@@ -3,14 +3,19 @@ enchant();
 window.onload = function(){
     var game = new Core(800, 600);
     game.fps = 15;
-    game.preload('button-green.png');
-    game.preload('button-red.png');
-    game.preload('ppl3.png');
-    game.preload('bowls.jpg');
-    game.preload('boss.png');
-    game.preload(); //put images and sounds here. ex: 'bear1.png'
+    game.preload('images/button-green.png', 'images/button-red.png', 'images/ppl3.png',
+                 'images/bowls.png', 'images/modkid.png', 'images/background.png');
 
     game.onload = function(){
+    
+      var background = Class.create(Sprite, {
+         initialize: function() {
+            Sprite.call(this, 800, 600);
+            this.image = game.assets['images/background.png'];
+         }
+      });
+      
+      var bg = new background();
       
       
       //       RECIPES      //
@@ -53,17 +58,23 @@ window.onload = function(){
       
       var player = new Player(Ingredients, RecipeBook);
       var kid = new Kid(player);
-      var bowl = new MixingBowl(200, 300, game, player, kid);
+      var bowl = new MixingBowl(350, 100, game, player, kid);
 
       
-      CB.image = game.assets['button-green.png'];
-      CB.x = 100;
-      I.image = game.assets['button-red.png'];
-      I.x = 200;
-      CC.image = game.assets['ppl3.png'];
-      kid.image = game.assets['boss.png'];
-      kid.x = 300;
+      CB.image = game.assets['images/button-green.png'];
+      CB.x = 50;
+      CB.y = 125;
+      I.image = game.assets['images/button-red.png'];
+      I.x = 50;
+      I.y = 225;
+      CC.image = game.assets['images/ppl3.png'];
+      CC.x = 50;
+      CC.y = 325;
+      kid.image = game.assets['images/modkid.png'];
+      kid.x = 500;
+      kid.y = 100;
       
+      game.rootScene.addChild(bg);
       game.rootScene.addChild(CB);
       game.rootScene.addChild(I);
       game.rootScene.addChild(CC);

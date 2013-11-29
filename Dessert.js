@@ -100,7 +100,7 @@ ChocoCoverStraw = Class.create({
 });
 
 
-
+this.checkClicked = true;
 /*********************
       INGREDIENTS
 *********************/
@@ -109,7 +109,8 @@ CakeBatter = Class.create(Sprite, {
       Sprite.call(this, 56, 56);
       this.amount = 4;
       this.label = new Label("");
-      this.label.x = 100;
+      this.label.x = 50;
+      this.label.y = 125;
       this.name = "CakeBatter";
       this.clicked = false;
       this.world = place;
@@ -137,9 +138,10 @@ CakeBatter = Class.create(Sprite, {
    },
    
    ontouchend: function() {
-      if (this.amount > 0) {
+      if (this.amount > 0 && checkClicked) {
          this.minus();
          this.clicked = true;
+         checkClicked = false;
       }
    },
    
@@ -185,9 +187,10 @@ CookieDough = Class.create(Sprite, {
    },
    
    ontouchend: function() {
-      if (this.amount > 0) {
+      if (this.amount > 0 && checkClicked) {
          this.minus();
          this.clicked = true;
+         checkClicked = false;
       }
    },
    
@@ -206,7 +209,8 @@ Icing = Class.create(Sprite, {
       Sprite.call(this, 56, 56);
       this.amount = 4;
       this.label = new Label("");
-      this.label.x = 200;
+      this.label.x = 50;
+      this.label.y = 225;
       this.name = "Icing";
       this.clicked = false;
       this.world = place;
@@ -234,9 +238,10 @@ Icing = Class.create(Sprite, {
    },
    
    ontouchend: function() {
-      if (this.amount > 0) {
+      if (this.amount > 0 && checkClicked) {
          this.minus();
          this.clicked = true;
+         checkClicked = false;
       }
    },
    
@@ -282,9 +287,10 @@ IceCream = Class.create(Sprite, {
    },
    
    ontouchend: function() {
-      if (this.amount > 0) {
+      if (this.amount > 0 && checkClicked) {
          this.minus();
          this.clicked = true;
+         checkClicked = false;
       }
    },
    
@@ -330,9 +336,10 @@ Vanilla = Class.create(Sprite, {
    },
    
    ontouchend: function() {
-      if (this.amount > 0) {
+      if (this.amount > 0 && checkClicked) {
          this.minus();
          this.clicked = true;
+         checkClicked = false;
       }
    },
    
@@ -350,7 +357,8 @@ Chocolate = Class.create(Sprite, {
       Sprite.call(this, 43, 51);
       this.amount = 4;
       this.label = new Label("");
-      this.label.x = 0;
+      this.label.x = 50;
+      this.label.y = 325;
       this.name = "Chocolate";
       this.clicked = false;
       this.world = place;
@@ -378,9 +386,10 @@ Chocolate = Class.create(Sprite, {
    },
    
    ontouchend: function() {
-      if (this.amount > 0) {
+      if (this.amount > 0 && checkClicked) {
          this.minus();
          this.clicked = true;
+         checkClicked = false;
       }
    },
    
@@ -426,9 +435,10 @@ Cream = Class.create(Sprite, {
    },
    
    ontouchend: function() {
-      if (this.amount > 0) {
+      if (this.amount > 0 && checkClicked) {
          this.minus();
          this.clicked = true;
+         checkClicked = false;
       }
    },
    
@@ -474,9 +484,10 @@ Strawberry = Class.create(Sprite, {
    },
    
    ontouchend: function() {
-      if (this.amount > 0) {
+      if (this.amount > 0 && checkClicked) {
          this.minus();
          this.clicked = true;
+         checkClicked = false;
       }
    },
    
@@ -522,9 +533,10 @@ PieCrust = Class.create(Sprite, {
    },
    
    ontouchend: function() {
-      if (this.amount > 0) {
+      if (this.amount > 0 && checkClicked) {
          this.minus();
          this.clicked = true;
+         checkClicked = false;
       }
    },
    

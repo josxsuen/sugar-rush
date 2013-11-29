@@ -5,7 +5,7 @@ enchant();
 //@param preference hints for the user to appeal to
 Kid = Class.create(Sprite, {
    initialize: function(person) {
-      Sprite.call(this, 50, 50);
+      Sprite.call(this, 100, 100);
       var happiness = 100; //100 * game.fps * duration
       var tolerance = 1;        //{1, 1/3, 2/3}
       this.preference;
@@ -17,8 +17,7 @@ Kid = Class.create(Sprite, {
    },
    
    random: function() {
-      var ranNum = Math.floor(Math.random() * 16);
-      //this.recipe = ranNum;
+      var ranNum = Math.floor(Math.random() * this.player.getRecipes().length);
       this.recipe = ranNum;
       this.preference = this.player.getRecipes()[0];
       //this.preference = this.player.getRecipes(ranNum);

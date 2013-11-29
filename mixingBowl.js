@@ -5,7 +5,7 @@ MixingBowl = Class.create(Sprite, {
       Sprite.call(this, 125, 100);
       this.x = x;
       this.y = y;
-      this.image = world.assets["bowls.jpg"];
+      this.image = world.assets['images/bowls.png'];
       this.scale(.5, .5);
       this.frame = 0;
       this.player = person;
@@ -30,7 +30,6 @@ MixingBowl = Class.create(Sprite, {
          for (var j = 0; j < this.count; j++) {
             var str1 = "" + this.contents[j];
             var str2 = "" + item.insides[i];
-            console.log(str2 + " and " + str1);
             if (str2 === str1) {
                this.contents[j] = 0;
                number++;
@@ -53,12 +52,13 @@ MixingBowl = Class.create(Sprite, {
    ontouchend: function() {
       //search in player for ingredient that was touched.
       var list = this.player.getIngredients();
-      for (var i = 0; i < 9; i++) {
+      for (var i = 0; i < list.length; i++) {
          if (list[i].clicked) {
             this.contents.push(list[i].name);
             list[i].clicked = false;
             this.frame++;
             this.count++;
+            checkClicked = true;
          }
       }
    }
