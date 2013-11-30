@@ -1,11 +1,11 @@
-enchant();
+// Kid
 
 //@param happinesslevel the happy bar that decrements while the kid is waiting on to be fed.
 //@param tolerance minimum correct number of ingredients needed for kid to be satisfied.
 //@param preference hints for the user to appeal to
 Kid = Class.create(Sprite, {
    initialize: function(person) {
-      Sprite.call(this, 100, 100);
+      Sprite.call(this, 119, 200);
       var happiness = 100; //100 * game.fps * duration
       var tolerance = 1;        //{1, 1/3, 2/3}
       this.preference;
@@ -17,19 +17,19 @@ Kid = Class.create(Sprite, {
    },
    
    random: function() {
-      var ranNum = Math.floor(Math.random() * this.player.getRecipes().length);
+      var ranNum = Math.floor(Math.random() * this.player.recipes.length);
       this.recipe = ranNum;
-      this.preference = this.player.getRecipes()[0];
+      this.preference = this.player.recipes[0];
       //this.preference = this.player.getRecipes(ranNum);
    },
    
-   getDessert: function() {
-      return this.preference;
-   },
+   // getDessert: function() {
+   //    return this.preference;
+   // },
    
-   whichRecipe: function() {
-      return this.recipe;
-   },
+   // whichRecipe: function() {
+   //    return this.recipe;
+   // },
    
    onaddedtoscene: function() {
       this.currentState = 'WAIT';

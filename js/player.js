@@ -6,13 +6,13 @@ Player = Class.create({
       this.recipes = recipes;
 	},
    
-   getIngredients: function() {
-      return this.items;
-   },
+   // getIngredients: function() {
+   //    return this.items;
+   // },
    
-   getRecipes: function() {
-      return this.recipes;
-   },
+   // getRecipes: function() {
+   //    return this.recipes;
+   // },
 
 	addMoney: function(dolla) {
 		this.money += dolla;
