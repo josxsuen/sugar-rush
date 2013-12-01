@@ -11,7 +11,8 @@ window.onload = function(){
       'images/bowl.png',
       'images/dessert.png',
       'images/ingredient.png',
-      'images/kid.png'
+      'images/kid.png',
+      'images/bomb.png'
    );
 
     game.onload = function(){
@@ -20,23 +21,23 @@ window.onload = function(){
       background.image = game.assets['images/background.png'];
 
       // Recipes      
-      var RecipeBook = [];
-      RecipeBook.push(new ChocolateCake());
-      RecipeBook.push(new ChocoStrawCake());
-      RecipeBook.push(new VanillaCake());
-      RecipeBook.push(new StrawShortCake());
-      RecipeBook.push(new BirthdayCake());
-      RecipeBook.push(new ChocolateIceCream());
-      RecipeBook.push(new VanillaIceCream());
-      RecipeBook.push(new StrawberryIceCream());
-      RecipeBook.push(new NeapolitanIceCream());
-      RecipeBook.push(new Cookie());
-      RecipeBook.push(new IcingCookie());
-      RecipeBook.push(new ChocolatePie());
-      RecipeBook.push(new StrawberryPie());
-      RecipeBook.push(new OriginalPie());
-      RecipeBook.push(new IceCreamPie());
-      RecipeBook.push(new ChocoCoverStraw());      
+      this.RecipeBook = [];
+      this.RecipeBook.push(new ChocolateCake());
+      this.RecipeBook.push(new ChocoStrawCake());
+      this.RecipeBook.push(new VanillaCake());
+      this.RecipeBook.push(new StrawShortCake());
+      this.RecipeBook.push(new BirthdayCake());
+      this.RecipeBook.push(new ChocolateIceCream());
+      this.RecipeBook.push(new VanillaIceCream());
+      this.RecipeBook.push(new StrawberryIceCream());
+      this.RecipeBook.push(new NeapolitanIceCream());
+      this.RecipeBook.push(new Cookie());
+      this.RecipeBook.push(new IcingCookie());
+      this.RecipeBook.push(new ChocolatePie());
+      this.RecipeBook.push(new StrawberryPie());
+      this.RecipeBook.push(new OriginalPie());
+      this.RecipeBook.push(new IceCreamPie());
+      this.RecipeBook.push(new ChocoCoverStraw());      
       
       // Ingredients
       // what is the purpose of passing game to each ingredient?
@@ -51,21 +52,16 @@ window.onload = function(){
       Ingredients.push(new Strawberry(game));
       Ingredients.push(new PieCrust(game));
       
-      var player = new Player(Ingredients, RecipeBook);
+      this.player = new Player(Ingredients, this.RecipeBook);
 
-      var kid = new Kid(player);
-      var bowl = new Bowl(50, 240, RecipeBook, game, player, kid);
-
+      var kid = new Kid(game);
       
-      // CB.image = game.assets['images/button-green.png'];
-      // CB.x = 50;
-      // CB.y = 125;
-      // I.image = game.assets['images/button-red.png'];
-      // I.x = 50;
-      // I.y = 225;
-      // CC.image = game.assets['images/ppl3.png'];
-      // CC.x = 50;
-      // CC.y = 325;
+      this.Bowls = [];
+      this.Bowls.push(new Bowl(50, 240, this.RecipeBook, game, this.player));
+      this.Bowls.push(new Bowl(250, 240, this.RecipeBook, game, this.player));
+      this.Bowls.push(new Bowl(450, 240, this.RecipeBook, game, this.player));
+      
+      
       kid.image = game.assets['images/kid.png'];
       kid.x = 50;
       kid.y = 25;
@@ -77,7 +73,15 @@ window.onload = function(){
          Ingredients[i].addAmt(10);
       }
 
-      game.rootScene.addChild(bowl);
+      for (var i in this.Bowls) {
+         game.rootScene.addChild(this.Bowls[i]);
+      }
+      
+      var trashcan = new Trash(game);
+      trashcan.image = game.assets['images/bomb.png'];
+      trashcan.x = 400;
+      
+      game.rootScene.addChild(trashcan);
       game.rootScene.addChild(kid);
     };
 

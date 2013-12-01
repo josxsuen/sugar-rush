@@ -1,14 +1,14 @@
 Bowl = Class.create(Sprite, {
-   initialize: function(x, y, recipes, world, person, ranKid) {
+   initialize: function(x, y, recipes, world, person) {
       Sprite.call(this, 120, 110);
       this.image = world.assets['images/bowl.png'];
       this.x = x;
       this.y = y;
       this.frame = 0;
 
+      this.trashing = false;
       this.recipes = recipes;
       this.player = person;
-      this.kid = ranKid;
 
       this.contents = {
          CakeBatter: 0,
@@ -33,7 +33,6 @@ Bowl = Class.create(Sprite, {
    },
    
    checkRecipe: function() {
-      // var item = this.kid.getDessert();
       var number = 0;
 
       var dessert;
@@ -53,6 +52,7 @@ Bowl = Class.create(Sprite, {
          }
       }
 
+      
       if (badMix) {
          this.frame = 3;
          console.log("bad mix");
@@ -60,6 +60,7 @@ Bowl = Class.create(Sprite, {
       else {
          this.image = dessert.image;
          this.frame = dessert.frame;
+         this.recipes[r].ready = true;
          // this.count = 0;
          // for (var i in this.contents) {
          //    this.contents[i] = 0;
@@ -69,6 +70,9 @@ Bowl = Class.create(Sprite, {
    },   
    
    ontouchend: function() {
+      //check if no ingredient is clicked, true = not clicked.
+      var trash = true;
+      
       //search in player for ingredient that was touched.
       var list = this.player.items;
 
@@ -81,7 +85,13 @@ Bowl = Class.create(Sprite, {
             
             list[i].clicked = false;
             checkClicked = true;
+            
+            trash = false;
          }
+      }
+      
+      if (trash) {
+         this.trashing = true;
       }
    }
 });

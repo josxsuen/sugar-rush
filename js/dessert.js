@@ -15,6 +15,7 @@ Dessert = Class.create({
          PieCrust:   0
       };
       this.image = game.assets['images/dessert.png'];
+      this.ready = false;
    }
 })
 

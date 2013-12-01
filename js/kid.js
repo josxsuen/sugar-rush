@@ -4,32 +4,23 @@
 //@param tolerance minimum correct number of ingredients needed for kid to be satisfied.
 //@param preference hints for the user to appeal to
 Kid = Class.create(Sprite, {
-   initialize: function(person) {
+   initialize: function(game) {
       Sprite.call(this, 119, 200);
       var happiness = 100; //100 * game.fps * duration
       var tolerance = 1;        //{1, 1/3, 2/3}
       this.preference;
-      this.recipe;
+      this.randomNum;
       var state = ['WAIT', 'UNFED', 'FED', 'END'];
       var currentState;
       //var timer = game.fps*10;
-      this.player = person;
+      this.world = game;
    },
    
    random: function() {
-      var ranNum = Math.floor(Math.random() * this.player.recipes.length);
-      this.recipe = ranNum;
-      this.preference = this.player.recipes[0];
-      //this.preference = this.player.getRecipes(ranNum);
+      this.randomNum = Math.floor(Math.random() * this.world.RecipeBook.length);
+      this.preference = this.world.RecipeBook[0];
+      //this.preference = this.player.getRecipes(randomNum);
    },
-   
-   // getDessert: function() {
-   //    return this.preference;
-   // },
-   
-   // whichRecipe: function() {
-   //    return this.recipe;
-   // },
    
    onaddedtoscene: function() {
       this.currentState = 'WAIT';
@@ -51,6 +42,21 @@ Kid = Class.create(Sprite, {
       // the score is based on how fast the kid was served. 
       // will work on this more
       return this.happinessLevel;
+   },
+   
+   ontouchend: function() {
+      for (var i in this.world.RecipeBook) {
+         if (this.world.RecipeBook[i].ready) {
+            /* this doesnt include the preference check.  If wanting preference
+            could go through the insides of the dessert and compare how many alike things
+            from there could then adjust for preference.*/
+            if (this.world.RecipeBook[i].frame === this.preference.frame) {
+               //kid likes the food.
+               console.log("I EAT");
+               this.world.RecipeBook[i].ready = false;
+            }
+         }
+      }
    }
    
    // Assuming is created at an empty spot for now. 

@@ -50,6 +50,11 @@ Ingredient = Class.create(Sprite, {
          this.clicked = true;
          checkClicked = false;
       }
+      else if (this.clicked && !checkClicked) {
+         this.clicked = false;
+         checkClicked = true;
+         this.add();
+      }
    },
    
    onenterframe: function() {
@@ -86,7 +91,7 @@ PieCrust = Class.create(Ingredient, {
 
 IceCream = Class.create(Ingredient, {
    initialize: function(place) {
-      Ingredient.call(this, place, 'Icing', 380, 560);
+      Ingredient.call(this, place, 'IceCream', 380, 560);
       this.frame = 3;
    }
 });
