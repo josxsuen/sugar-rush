@@ -1,8 +1,5 @@
 // Kid
 
-//@param happinesslevel the happy bar that decrements while the kid is waiting on to be fed.
-//@param tolerance minimum correct number of ingredients needed for kid to be satisfied.
-//@param preference hints for the user to appeal to
 Kid = Class.create(Sprite, {
    initialize: function(game) {
       Sprite.call(this, 119, 200);
@@ -12,8 +9,16 @@ Kid = Class.create(Sprite, {
       this.randomNum;
       var state = ['WAIT', 'UNFED', 'FED', 'END'];
       var currentState;
-      //var timer = game.fps*10;
+      var timerFlag = false;
       this.world = game;
+           
+      this.addEventListener(Event.ENTER_FRAME, function() {  
+         if (this.timerFlag) {
+            this.moveBy(15, 0); //runs off screen
+            if (this.x > this.world.width + this.width/2)
+               this.world.rootScene.removeChild(this);
+         }
+      });
    },
    
    random: function() {
@@ -24,26 +29,20 @@ Kid = Class.create(Sprite, {
    
    onaddedtoscene: function() {
       this.currentState = 'WAIT';
-      this.frame = 1;
+      this.frame = 0;
       this.random();
    },
-   
-   //Called from outside 
-   eats: function(recipe) {
-      this.currentState = FED;
-   },
-   
+
    newBubble: function(ingredient) {
       //Add a speech bubble object displaying a preferred ingredient
-   },
-   
+   },   
    
    calculateScore: function() {
       // the score is based on how fast the kid was served. 
       // will work on this more
       return this.happinessLevel;
    },
-   
+
    ontouchend: function() {
       for (var i in this.world.RecipeBook) {
          if (this.world.RecipeBook[i].ready) {
@@ -54,43 +53,15 @@ Kid = Class.create(Sprite, {
                //kid likes the food.
                console.log("I EAT");
                this.world.RecipeBook[i].ready = false;
+               this.frame = 4; //Happy
             }
+            else {//Kid does not like the food
+               console.log("I DONT LIKE IT!");
+               this.frame = 3; //Crying
+               //move bowl to trash & reset it
+            }
+            this.timerFlag = true;
          }
       }
    }
-   
-   // Assuming is created at an empty spot for now. 
-      /*this.addEventListener(Event.ENTER_FRAME, function() {        
-         switch (this.currentState) {
-            case "WAIT":
-               if (this.happiness < 0) {
-                  this.currentState = 'UNFED';
-               }
-               else if (this.age % game.fps === 0) {
-                  happiness--; //decrement every gametime seconds
-                  
-                  // newBubble(preferenceDisplay preference bubble if null
-                  if (this.happiness > 60)
-                     this.frame = 2;
-                  else if (this.happiness > 30)
-                     this.frame = 3;
-               }               
-               break;
-            case 'UNFED':
-               // run animation of throwing a tantrum
-               this.frame = 4;
-               this.currentState = 'END';
-               break;
-            case 'FED':
-               // run animation of eating happily
-               this.frame = 5;
-               this.currentState = 'END';
-               break;
-            case 'END':
-               if (!timer--) { 
-                  game.score += calculateScore();
-                  game.rootScene.removeChild(this);
-               }
-         }
-      });*/
 });
