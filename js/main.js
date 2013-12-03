@@ -1,6 +1,10 @@
 enchant();
 
 this.checkClicked = true;
+var playerMoney = 2000;
+var playerHealth = 100;
+var playerItems = [];
+var playerRecipes = [];
 
 window.onload = function(){
    game = new Core(640, 960);
@@ -12,11 +16,13 @@ window.onload = function(){
       'images/dessert.png',
       'images/ingredient.png',
       'images/kid.png',
-      'images/bomb.png'
+      'images/bomb.png',
+      'images/shopImages.png'
    );
 
     game.onload = function(){
 
+      var level1 = new Scene();
       var background = new Sprite(640, 960);
       background.image = game.assets['images/background.png'];
 
@@ -42,16 +48,18 @@ window.onload = function(){
       // Ingredients
       // what is the purpose of passing game to each ingredient?
       var Ingredients = [];
-      Ingredients.push(new CakeBatter(game));
-      Ingredients.push(new CookieDough(game));
-      Ingredients.push(new Icing(game));
-      Ingredients.push(new IceCream(game));
-      Ingredients.push(new Vanilla(game));
-      Ingredients.push(new Chocolate(game));
-      Ingredients.push(new Cream(game));
-      Ingredients.push(new Strawberry(game));
-      Ingredients.push(new PieCrust(game));
+      Ingredients.push(new CakeBatter(level1));
+      Ingredients.push(new CookieDough(level1));
+      Ingredients.push(new PieCrust(level1));
+      Ingredients.push(new Icing(level1));
+      Ingredients.push(new IceCream(level1));
+      Ingredients.push(new Vanilla(level1));
+      Ingredients.push(new Chocolate(level1));
+      Ingredients.push(new Cream(level1));
+      Ingredients.push(new Strawberry(level1));
       
+      playerItems = Ingredients;
+      playerRecipes = this.RecipeBook;      
       this.player = new Player(Ingredients, this.RecipeBook);
 
       var kid = new Kid(game);
@@ -66,23 +74,29 @@ window.onload = function(){
       kid.x = 50;
       kid.y = 25;
 
-      game.rootScene.addChild(background);
+      
+      level1.addChild(background);
 
       for (var i in Ingredients) {
-         game.rootScene.addChild(Ingredients[i]);
-         Ingredients[i].addAmt(10);
+         level1.addChild(Ingredients[i]);
+         //Ingredients[i].addAmt(10);
       }
 
       for (var i in this.Bowls) {
-         game.rootScene.addChild(this.Bowls[i]);
+         level1.addChild(this.Bowls[i]);
       }
       
       var trashcan = new Trash(game);
       trashcan.image = game.assets['images/bomb.png'];
       trashcan.x = 400;
       
-      game.rootScene.addChild(trashcan);
-      game.rootScene.addChild(kid);
+      level1.addChild(trashcan);
+      level1.addChild(kid);
+
+      game.pushScene(level1);
+
+      var shop = newShop(game, level1);
+      game.pushScene(shop);
     };
 
     game.start();

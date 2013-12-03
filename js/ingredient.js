@@ -62,7 +62,7 @@ Ingredient = Class.create(Sprite, {
    },
    
    onaddedtoscene: function() {
-      this.world.rootScene.addChild(this.label);
+      this.world.addChild(this.label);
    }
 });
 
