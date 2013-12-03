@@ -12,8 +12,7 @@ window.onload = function(){
       'images/dessert.png',
       'images/ingredient.png',
       'images/kid.png',
-      'images/bomb.png',
-      'images/shopImages.png'
+      'images/bomb.png'
    );
 
     game.onload = function(){
@@ -67,29 +66,23 @@ window.onload = function(){
       kid.x = 50;
       kid.y = 25;
 
-      var level1 = new Scene();
-      level1.addChild(background);
+      game.rootScene.addChild(background);
 
       for (var i in Ingredients) {
-         level1.addChild(Ingredients[i]);
+         game.rootScene.addChild(Ingredients[i]);
          Ingredients[i].addAmt(10);
       }
 
       for (var i in this.Bowls) {
-         level1.addChild(this.Bowls[i]);
+         game.rootScene.addChild(this.Bowls[i]);
       }
       
       var trashcan = new Trash(game);
       trashcan.image = game.assets['images/bomb.png'];
       trashcan.x = 400;
       
-      level1.addChild(trashcan);
-      level1.addChild(kid);
-
-      //game.pushScene(level1);
-
-      var shop = newShop(game);
-      game.pushScene(shop);
+      game.rootScene.addChild(trashcan);
+      game.rootScene.addChild(kid);
     };
 
     game.start();
