@@ -1,13 +1,13 @@
 lookupShop = function(name) {
-   if (name == 'CakeBatter') return 0;
-   if (name == 'CookieDough') return 1;
-   if (name == 'PieCrust') return 2;
-   if (name == 'Icing') return 3;
-   if (name == 'Icecream') return 4;
-   if (name == 'Vanilla') return 5;
-   if (name == 'Chocolate') return 6;
-   if (name == 'Cream') return 7;
-   if (name == 'Strawberry') return 8;
+   if (name === 'CakeBatter') return 0;
+   if (name === 'CookieDough') return 1;
+   if (name === 'PieCrust') return 2;
+   if (name === 'Icing') return 3;
+   if (name === 'Icecream') return 4;
+   if (name === 'Vanilla') return 5;
+   if (name === 'Chocolate') return 6;
+   if (name === 'Cream') return 7;
+   if (name === 'Strawberry') return 8;
    return -1;
 }
 
@@ -39,7 +39,7 @@ newShop = function(game, level1) {
    shopLabel.color = 'black';
    shopLabel.x = 240;
    shopLabel.y = 20;
-   
+
    var nextLevelLabel = new Label('Begin Next Level');
    nextLevelLabel.font = 'bold 24px Arial';
    nextLevelLabel.color = 'black';
@@ -51,7 +51,7 @@ newShop = function(game, level1) {
       if (this.buttonPressed)
          game.popScene();
    };
-   
+
    var currentMoney = new Label('funds: ' + playerMoney);
    currentMoney.font = 'bold 24px Arial';
    currentMoney.color = 'black';
@@ -89,7 +89,7 @@ Shop = Class.create(Sprite, {
       this.clicked = false;
       world = place;
    },
-   
+
    add: function() {
       this.amount += 1;
    },
@@ -97,20 +97,20 @@ Shop = Class.create(Sprite, {
    addAmt: function(amt) {
       this.amount += amt;
    },
-   
+
    minus: function() {
-      if (this.amount > 0) 
+      if (this.amount > 0)
          this.amount -= 1;
    },
-   
+
    numberOf: function() {
       return this.amount;
    },
-   
+
    nameOf: function() {
       return this.name;
    },
-   
+
    updateLabel: function() {
       var location = lookupShop(this.name);
       var own = playerItems[location].amount;
@@ -118,7 +118,7 @@ Shop = Class.create(Sprite, {
       this.label.text = "amount: " + this.amount + ", cost: " + this.cost +
           "<br><br>                     own: " + own;
    },
-   
+
    ontouchend: function() {
       /*
       if (this.amount > 0 && checkClicked && playerMoney > this.cost) {
@@ -142,11 +142,11 @@ Shop = Class.create(Sprite, {
          console.log('purchased ' + this.name);
       }
    },
-   
+
    onenterframe: function() {
       this.updateLabel();
    },
-   
+
    onaddedtoscene: function() {
       this.shopScene.addChild(this.label);
    }

@@ -1,9 +1,13 @@
 Trash = Class.create(Sprite, {
-   initialize: function(game) {
-      Sprite.call(this, 75, 75);
-      this.world = game;
+   initialize: function(level) {
+      Sprite.call(this, 100, 96);
+      this.world = level;
+
+      this.image = game.assets['images/trash.png'];
+      this.x = 270;
+      this.y = 840;
    },
-   
+
    ontouchend: function() {
       console.log(this.world.Bowls[0]);
       //throw away mixing bowl or ingredient clicked.  Reset mixing bowl with new one
@@ -13,9 +17,9 @@ Trash = Class.create(Sprite, {
             var x = this.world.Bowls[i].x;
             var y = this.world.Bowls[i].y;
             var len = this.world.Bowls.length;
-            
+
             this.world.removeChild(this.world.Bowls[i]);
-            
+
             if (i == 0) {
                this.world.Bowls.shift();
             }

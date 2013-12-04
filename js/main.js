@@ -16,7 +16,7 @@ window.onload = function(){
       'images/dessert.png',
       'images/ingredient.png',
       'images/kid.png',
-      'images/bomb.png',
+      'images/trash.png',
       'images/shopImages.png'
    );
 
@@ -26,7 +26,7 @@ window.onload = function(){
       var background = new Sprite(640, 960);
       background.image = game.assets['images/background.png'];
 
-      // Recipes      
+      // Recipes
       this.RecipeBook = [];
       this.RecipeBook.push(new ChocolateCake());
       this.RecipeBook.push(new ChocoStrawCake());
@@ -43,8 +43,8 @@ window.onload = function(){
       this.RecipeBook.push(new StrawberryPie());
       this.RecipeBook.push(new OriginalPie());
       this.RecipeBook.push(new IceCreamPie());
-      this.RecipeBook.push(new ChocoCoverStraw());      
-      
+      this.RecipeBook.push(new ChocoCoverStraw());
+
       // Ingredients
       // what is the purpose of passing game to each ingredient?
       var Ingredients = [];
@@ -57,24 +57,24 @@ window.onload = function(){
       Ingredients.push(new Chocolate(level1));
       Ingredients.push(new Cream(level1));
       Ingredients.push(new Strawberry(level1));
-      
+
       playerItems = Ingredients;
-      playerRecipes = this.RecipeBook;      
+      playerRecipes = this.RecipeBook;
       this.player = new Player(Ingredients, this.RecipeBook);
 
       var kid = new Kid(game);
-      
+
       level1.Bowls = [];
-      level1.Bowls.push(new Bowl(50, 240, this.RecipeBook, level1, this.player));
-      level1.Bowls.push(new Bowl(250, 240, this.RecipeBook, level1, this.player));
-      level1.Bowls.push(new Bowl(450, 240, this.RecipeBook, level1, this.player));
-      
-      
+      level1.Bowls.push(new Bowl(50, 340, this.RecipeBook, level1, this.player));
+      level1.Bowls.push(new Bowl(250, 340, this.RecipeBook, level1, this.player));
+      level1.Bowls.push(new Bowl(450, 340, this.RecipeBook, level1, this.player));
+
+
       kid.image = game.assets['images/kid.png'];
       kid.x = 50;
-      kid.y = 25;
+      kid.y = 120;
 
-      
+
       level1.addChild(background);
 
       for (var i in Ingredients) {
@@ -85,11 +85,9 @@ window.onload = function(){
       for (var i in level1.Bowls) {
          level1.addChild(level1.Bowls[i]);
       }
-      
+
       var trashcan = new Trash(level1);
-      trashcan.image = game.assets['images/bomb.png'];
-      trashcan.x = 400;
-      
+
       level1.addChild(trashcan);
       level1.addChild(kid);
 

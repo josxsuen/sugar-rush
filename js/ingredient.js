@@ -18,7 +18,7 @@ Ingredient = Class.create(Sprite, {
       this.clicked = false;
       this.world = place;
    },
-   
+
    add: function() {
       this.amount += 1;
    },
@@ -26,24 +26,24 @@ Ingredient = Class.create(Sprite, {
    addAmt: function(amt) {
       this.amount += amt;
    },
-   
+
    minus: function() {
-      if (this.amount > 0) 
+      if (this.amount > 0)
          this.amount -= 1;
    },
-   
+
    numberOf: function() {
       return this.amount;
    },
-   
+
    nameOf: function() {
       return this.name;
    },
-   
+
    updateLabel: function() {
       this.label.text = this.amount;
    },
-   
+
    ontouchend: function() {
       if (this.amount > 0 && checkClicked) {
          this.minus();
@@ -56,11 +56,11 @@ Ingredient = Class.create(Sprite, {
          this.add();
       }
    },
-   
+
    onenterframe: function() {
       this.updateLabel();
    },
-   
+
    onaddedtoscene: function() {
       this.world.addChild(this.label);
    }
@@ -70,63 +70,63 @@ Ingredient = Class.create(Sprite, {
 
 CakeBatter = Class.create(Ingredient, {
    initialize: function(place) {
-      Ingredient.call(this, place, 'CakeBatter', 50, 560);
+      Ingredient.call(this, place, 'CakeBatter', 50, 565);
       this.frame = 0;
    }
 });
 
 CookieDough = Class.create(Ingredient, {
    initialize: function(place) {
-      Ingredient.call(this, place, 'CookieDough', 160, 560);
+      Ingredient.call(this, place, 'CookieDough', 160, 565);
       this.frame = 1;
    }
 });
 
 PieCrust = Class.create(Ingredient, {
    initialize: function(place) {
-      Ingredient.call(this, place, 'PieCrust', 270, 560);
+      Ingredient.call(this, place, 'PieCrust', 270, 565);
       this.frame = 2;
    }
 });
 
 IceCream = Class.create(Ingredient, {
    initialize: function(place) {
-      Ingredient.call(this, place, 'IceCream', 380, 560);
+      Ingredient.call(this, place, 'IceCream', 380, 565);
       this.frame = 3;
    }
 });
 
 Cream = Class.create(Ingredient, {
    initialize: function(place) {
-      Ingredient.call(this, place, 'Cream', 490, 560);
+      Ingredient.call(this, place, 'Cream', 490, 565);
       this.frame = 4;
    }
 });
 
 Icing = Class.create(Ingredient, {
    initialize: function(place) {
-      Ingredient.call(this, place, 'Icing', 50, 670);
+      Ingredient.call(this, place, 'Icing', 50, 680);
       this.frame = 5;
    }
 });
 
 Chocolate = Class.create(Ingredient, {
    initialize: function(place) {
-      Ingredient.call(this, place, 'Chocolate', 160, 670);
+      Ingredient.call(this, place, 'Chocolate', 160, 680);
       this.frame = 6;
    }
 });
 
 Vanilla = Class.create(Ingredient, {
    initialize: function(place) {
-      Ingredient.call(this, place, 'Vanilla', 270, 670);
+      Ingredient.call(this, place, 'Vanilla', 270, 680);
       this.frame = 7;
    }
 });
 
 Strawberry = Class.create(Ingredient, {
    initialize: function(place) {
-      Ingredient.call(this, place, 'Strawberry', 380, 670);
+      Ingredient.call(this, place, 'Strawberry', 380, 680);
       this.frame = 8;
    }
 });

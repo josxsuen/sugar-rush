@@ -1,5 +1,6 @@
 background(640, 960)
 bowl(120, 110)
+bubble(120, 121)
 dessert(120, 110)
 ingredient(100, 100)
 kid(119, 200)
