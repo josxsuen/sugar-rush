@@ -127,6 +127,7 @@ Shop = Class.create(Sprite, {
          checkClicked = false;
       }
       */
+	  console.log("touched");
       var location = lookupShop(this.name);
 
       if (this.amount <= 0) {

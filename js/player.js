@@ -1,9 +1,10 @@
 Player = Class.create({
-	initialize: function(items, recipes) {
+	initialize: function(items, recipes, desserts) {
 		var money = 0;
 		var health = 100;
       this.items = items;
       this.recipes = recipes;
+      this.desserts = desserts;
 	},
    
    // getIngredients: function() {

@@ -57,10 +57,12 @@ window.onload = function(){
       Ingredients.push(new Chocolate(level1));
       Ingredients.push(new Cream(level1));
       Ingredients.push(new Strawberry(level1));
+      
+      var desserts = [];
 
       playerItems = Ingredients;
       playerRecipes = this.RecipeBook;
-      this.player = new Player(Ingredients, this.RecipeBook);
+      this.player = new Player(Ingredients, this.RecipeBook, desserts);
 
       var kid = new Kid(game);
 
@@ -86,7 +88,7 @@ window.onload = function(){
          level1.addChild(level1.Bowls[i]);
       }
 
-      var trashcan = new Trash(level1);
+      var trashcan = new Trash(level1, game);
 
       level1.addChild(trashcan);
       level1.addChild(kid);

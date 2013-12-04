@@ -1,7 +1,8 @@
 Trash = Class.create(Sprite, {
-   initialize: function(level) {
+   initialize: function(level, game) {
       Sprite.call(this, 100, 96);
       this.world = level;
+	  this.game = game;
 
       this.image = game.assets['images/trash.png'];
       this.x = 270;
@@ -9,7 +10,6 @@ Trash = Class.create(Sprite, {
    },
 
    ontouchend: function() {
-      console.log(this.world.Bowls[0]);
       //throw away mixing bowl or ingredient clicked.  Reset mixing bowl with new one
       //or just disable the click of the ingredient.
       for (var i in this.world.Bowls) {
@@ -32,7 +32,7 @@ Trash = Class.create(Sprite, {
                array[1] = (this.world.Bowls[len-1]);
                this.world.Bowls = array;
             }
-            var newBowl = new Bowl(x, y, this.world.RecipeBook, this.world, this.world.player);
+            var newBowl = new Bowl(x, y, this.game.RecipeBook, this.world, this.game.player);
             this.world.Bowls.push(newBowl);
             this.world.addChild(newBowl);
          }

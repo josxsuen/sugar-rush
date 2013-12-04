@@ -70,28 +70,37 @@ Bowl = Class.create(Sprite, {
    },   
    
    ontouchend: function() {
-      //check if no ingredient is clicked, true = not clicked.
-      var trash = true;
-      
-      //search in player for ingredient that was touched.
-      var list = this.player.items;
+      if (this.open) {
+         //check if no ingredient is clicked, true = not clicked.
+         var trash = true;
+         
+         //search in player for ingredient that was touched.
+         var list = this.player.items;
 
-      for (var i in list) {
-         if (this.open && list[i].clicked) {
-            // this.contents.push(list[i].name);
-            this.contents[list[i].name]++;
-            this.frame++;
-            this.count++;
-            
-            list[i].clicked = false;
-            checkClicked = true;
-            
-            trash = false;
+         for (var i in list) {
+            if (this.open && list[i].clicked) {
+               // this.contents.push(list[i].name);
+               this.contents[list[i].name]++;
+               this.frame++;
+               this.count++;
+               
+               list[i].clicked = false;
+               checkClicked = true;
+               
+               trash = false;
+            }
+         }
+         
+         if (trash) {
+            this.trashing = true;
          }
       }
-      
-      if (trash) {
-         this.trashing = true;
+      else {
+         for (var i in this.player.desserts) {
+            if (this.player.desserts.ready) {
+               this.recipes[i].feed = true;
+            }
+         }
       }
    }
 });

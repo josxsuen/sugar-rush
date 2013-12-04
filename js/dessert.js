@@ -16,6 +16,7 @@ Dessert = Class.create({
       };
       this.image = game.assets['images/dessert.png'];
       this.ready = false;
+      this.feed = false;
    }
 })
 
