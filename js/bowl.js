@@ -1,7 +1,7 @@
 Bowl = Class.create(Sprite, {
    initialize: function(x, y, recipes, world, person) {
       Sprite.call(this, 120, 110);
-      this.image = world.assets['images/bowl.png'];
+      this.image = game.assets['images/bowl.png'];
       this.x = x;
       this.y = y;
       this.frame = 0;

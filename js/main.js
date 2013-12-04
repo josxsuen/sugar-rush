@@ -64,10 +64,10 @@ window.onload = function(){
 
       var kid = new Kid(game);
       
-      this.Bowls = [];
-      this.Bowls.push(new Bowl(50, 240, this.RecipeBook, game, this.player));
-      this.Bowls.push(new Bowl(250, 240, this.RecipeBook, game, this.player));
-      this.Bowls.push(new Bowl(450, 240, this.RecipeBook, game, this.player));
+      level1.Bowls = [];
+      level1.Bowls.push(new Bowl(50, 240, this.RecipeBook, level1, this.player));
+      level1.Bowls.push(new Bowl(250, 240, this.RecipeBook, level1, this.player));
+      level1.Bowls.push(new Bowl(450, 240, this.RecipeBook, level1, this.player));
       
       
       kid.image = game.assets['images/kid.png'];
@@ -82,11 +82,11 @@ window.onload = function(){
          //Ingredients[i].addAmt(10);
       }
 
-      for (var i in this.Bowls) {
-         level1.addChild(this.Bowls[i]);
+      for (var i in level1.Bowls) {
+         level1.addChild(level1.Bowls[i]);
       }
       
-      var trashcan = new Trash(game);
+      var trashcan = new Trash(level1);
       trashcan.image = game.assets['images/bomb.png'];
       trashcan.x = 400;
       
