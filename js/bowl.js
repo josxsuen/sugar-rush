@@ -95,12 +95,5 @@ Bowl = Class.create(Sprite, {
             this.trashing = true;
          }
       }
-      else {
-         for (var i in this.player.desserts) {
-            if (this.player.desserts.ready) {
-               this.recipes[i].feed = true;
-            }
-         }
-      }
    }
 });

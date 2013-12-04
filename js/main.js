@@ -58,11 +58,11 @@ window.onload = function(){
       Ingredients.push(new Cream(level1));
       Ingredients.push(new Strawberry(level1));
       
-      var desserts = [];
+      this.desserts = [];
 
       playerItems = Ingredients;
       playerRecipes = this.RecipeBook;
-      this.player = new Player(Ingredients, this.RecipeBook, desserts);
+      this.player = new Player(Ingredients, this.RecipeBook, this.desserts);
 
       var kid = new Kid(game);
 
