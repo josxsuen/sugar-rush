@@ -72,6 +72,7 @@ Kid = Class.create(Sprite, {
    },
 
    ontouchend: function() {
+      var tLevel = 0;
       var isLiked = false;
       for (var i in yumDesserts) {
          //if dessert is clicked
@@ -79,16 +80,26 @@ Kid = Class.create(Sprite, {
             //dessert exactly matches wanted dessert
             //make this based on preference.  go through insides and match them up.
             //0-3points possible. 1point for each matched ingredient.
-            if (yumDesserts[i].frame === this.preference.frame) {
+            for (var k in this.preference.insides) {
+               for (var l in yumDesserts[i].insides) {
+                  if (k == l) {
+                     if (this.preference.insides[k] > 0 && yumDesserts[i].insides[l] > 0) {
+                        tLevel++;
+                        yumDesserts[i].insides[l] -= 1;
+                     }
+                  }
+               }
+            }
+            if (tLevel > 0) {
                isLiked = true;
                eatDessert(this.level, this.world, i);
                this.frame = 4;
             }
+            else {
+               this.frame = 3;
+            }
             break;
          }
-      }
-      if (!isLiked) {
-         this.frame = 3;
       }
       this.timerFlag = true;
    }
