@@ -19,8 +19,10 @@ window.onload = function(){
       'images/kid.png',
       'images/trash.png',
       'images/shopImages.png',
-	  'images/bomb.png',
-	  'images/RecipeBook.png'
+      'images/bomb.png',
+      'images/recipebook.png',
+      'images/book.png',
+      'images/close.png'
    );
 
     game.onload = function(){
@@ -93,7 +95,7 @@ window.onload = function(){
 
       level1.addChild(trashcan);
       level1.addChild(kid);
-	  
+
 	  var inButton = new InRecipe(game);
 	  level1.addChild(inButton);
 

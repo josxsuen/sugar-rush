@@ -1,12 +1,12 @@
 Trash = Class.create(Sprite, {
    initialize: function(level, game) {
-      Sprite.call(this, 100, 96);
+      Sprite.call(this, 83, 80);
       this.world = level;
 	   this.game = game;
 
       this.image = game.assets['images/trash.png'];
-      this.x = 270;
-      this.y = 840;
+      this.x = 545;
+      this.y = 870;
    },
 
    ontouchend: function() {
