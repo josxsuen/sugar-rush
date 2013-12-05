@@ -13,6 +13,7 @@ window.onload = function(){
 
    game.preload(
       'images/background.png',
+      'images/bubble.png',
       'images/bowl.png',
       'images/dessert.png',
       'images/ingredient.png',
