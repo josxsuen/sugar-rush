@@ -1,7 +1,34 @@
-// Kid
+eatDessert = function(level, world, i) {
+   var x = yumDesserts[i].x;
+   var y = yumDesserts[i].y;
+   var len = yumDesserts.length;
+   
+   //remove dessert
+   level.removeChild(yumDesserts[i]);
+   if (i == 0) {
+      yumDesserts.shift();
+   }
+   else if (i == len - 1) {
+      yumDesserts.pop();
+   }
+   else {
+      var array = [];
+      array[0] = yumDesserts[0];
+      array[1] = yumDesserts[len - 1];
+      yumDesserts = array;
+   }
+   
+   //add bowl
+   var newBowl = new Bowl(x, y, world.RecipeBook, level, world.player);
+   level.Bowls.push(newBowl);
+   level.addChild(newBowl);
+}
+
+
+
 
 Kid = Class.create(Sprite, {
-   initialize: function(game) {
+   initialize: function(game, level) {
       Sprite.call(this, 119, 200);
       var happiness = 100; //100 * game.fps * duration
       var tolerance = 1;        //{1, 1/3, 2/3}
@@ -11,12 +38,13 @@ Kid = Class.create(Sprite, {
       var currentState;
       var timerFlag = false;
       this.world = game;
+      this.level = level;
            
       this.addEventListener(Event.ENTER_FRAME, function() {  
          if (this.timerFlag) {
             this.moveBy(15, 0); //runs off screen
             if (this.x > this.world.width + this.width/2)
-               this.world.rootScene.removeChild(this);
+               this.level.removeChild(this);
          }
       });
    },
@@ -44,24 +72,24 @@ Kid = Class.create(Sprite, {
    },
 
    ontouchend: function() {
-      for (var i in this.world.RecipeBook) {
-         if (this.world.RecipeBook[i].ready) {
-            /* this doesnt include the preference check.  If wanting preference
-            could go through the insides of the dessert and compare how many alike things
-            from there could then adjust for preference.*/
-            if (this.world.RecipeBook[i].frame === this.preference.frame) {
-               //kid likes the food.
-               console.log("I EAT");
-               this.world.RecipeBook[i].ready = false;
-               this.frame = 4; //Happy
+      var isLiked = false;
+      for (var i in yumDesserts) {
+         //if dessert is clicked
+         if (yumDesserts[i].feed) {
+            //dessert exactly matches wanted dessert
+            //make this based on preference.  go through insides and match them up.
+            //0-3points possible. 1point for each matched ingredient.
+            if (yumDesserts[i].frame === this.preference.frame) {
+               isLiked = true;
+               eatDessert(this.level, this.world, i);
+               this.frame = 4;
             }
-            else {//Kid does not like the food
-               console.log("I DONT LIKE IT!");
-               this.frame = 3; //Crying
-               //move bowl to trash & reset it
-            }
-            this.timerFlag = true;
+            break;
          }
       }
+      if (!isLiked) {
+         this.frame = 3;
+      }
+      this.timerFlag = true;
    }
 });

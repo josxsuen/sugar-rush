@@ -1,8 +1,9 @@
 // Dessert types
 // Note: may want to change to plain objects for simplicity
 
-Dessert = Class.create({
+Dessert = Class.create(Sprite, {
    initialize: function() {
+      Sprite.call(this, 120, 110);
       this.insides = {
          CakeBatter: 0,
          CookieDough:0,
@@ -15,10 +16,13 @@ Dessert = Class.create({
          PieCrust:   0
       };
       this.image = game.assets['images/dessert.png'];
-      this.ready = false;
       this.feed = false;
+   },
+   
+   ontouchend: function() {
+      this.feed = true;
    }
-})
+});
 
 ChocolateCake = Class.create(Dessert, {
    initialize: function() {

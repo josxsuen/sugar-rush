@@ -2,7 +2,7 @@ Trash = Class.create(Sprite, {
    initialize: function(level, game) {
       Sprite.call(this, 100, 96);
       this.world = level;
-	  this.game = game;
+	   this.game = game;
 
       this.image = game.assets['images/trash.png'];
       this.x = 270;

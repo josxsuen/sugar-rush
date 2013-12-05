@@ -5,6 +5,7 @@ Bowl = Class.create(Sprite, {
       this.x = x;
       this.y = y;
       this.frame = 0;
+      this.world = world;
 
       this.trashing = false;
       this.recipes = recipes;
@@ -54,17 +55,44 @@ Bowl = Class.create(Sprite, {
 
       
       if (badMix) {
+         //bad mix
          this.frame = 3;
          console.log("bad mix");
       }
       else {
-         this.image = dessert.image;
-         this.frame = dessert.frame;
-         this.recipes[r].ready = true;
-         // this.count = 0;
-         // for (var i in this.contents) {
-         //    this.contents[i] = 0;
-         // }
+         //good mix. remove bowl. add dessert.
+         
+         var x = this.x;
+         var y = this.y;
+         var len = this.world.Bowls.length;
+         
+         //remove bowl
+         for (var i in this.world.Bowls) {
+            if (this.world.Bowls[i].x === x) {
+               this.world.removeChild(this);
+               if (i == 0) {
+                  this.world.Bowls.shift();
+               }
+               else if (i == len - 1) {
+                  this.world.Bowls.pop();
+               }
+               else {
+                  var array = [];
+                  array[0] = this.world.Bowls[0];
+                  array[1] = (this.world.Bowls[len-1]);
+                  this.world.Bowls = array;
+               }
+               break;
+            }
+         }
+         
+         //adding dessert
+         var toAdd = new dessert.constructor;
+         yumDesserts.push(toAdd);
+         toAdd.x = x;
+         toAdd.y = y;
+         this.world.addChild(toAdd);
+         
          console.log("good mix");
       }
    },   

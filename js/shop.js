@@ -86,6 +86,12 @@ Shop = Class.create(Sprite, {
       this.label.x = x;
       this.label.y = y;
 
+      this.label1 = new Label('');
+      this.label1.font = 'bold 18px Arial';
+      this.label1.color = 'black';
+      this.label1.x = x;
+      this.label1.y = y+80;
+
       this.clicked = false;
       world = place;
    },
@@ -115,8 +121,8 @@ Shop = Class.create(Sprite, {
       var location = lookupShop(this.name);
       var own = playerItems[location].amount;
 
-      this.label.text = "amount: " + this.amount + ", cost: " + this.cost +
-          "<br><br>                     own: " + own;
+      this.label.text = "amount: " + this.amount + ", cost: " + this.cost;
+      this.label1.text = "own: " + own;
    },
 
    ontouchend: function() {
@@ -127,7 +133,6 @@ Shop = Class.create(Sprite, {
          checkClicked = false;
       }
       */
-	  console.log("touched");
       var location = lookupShop(this.name);
 
       if (this.amount <= 0) {
@@ -150,6 +155,7 @@ Shop = Class.create(Sprite, {
 
    onaddedtoscene: function() {
       this.shopScene.addChild(this.label);
+      this.shopScene.addChild(this.label1);
    }
 });
 

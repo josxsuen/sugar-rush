@@ -5,6 +5,7 @@ var playerMoney = 2000;
 var playerHealth = 100;
 var playerItems = [];
 var playerRecipes = [];
+var yumDesserts = [];
 
 window.onload = function(){
    game = new Core(640, 960);
@@ -17,7 +18,9 @@ window.onload = function(){
       'images/ingredient.png',
       'images/kid.png',
       'images/trash.png',
-      'images/shopImages.png'
+      'images/shopImages.png',
+	  'images/bomb.png',
+	  'images/RecipeBook.png'
    );
 
     game.onload = function(){
@@ -57,14 +60,12 @@ window.onload = function(){
       Ingredients.push(new Chocolate(level1));
       Ingredients.push(new Cream(level1));
       Ingredients.push(new Strawberry(level1));
-      
-      this.desserts = [];
 
       playerItems = Ingredients;
       playerRecipes = this.RecipeBook;
-      this.player = new Player(Ingredients, this.RecipeBook, this.desserts);
+      this.player = new Player(Ingredients, this.RecipeBook);
 
-      var kid = new Kid(game);
+      var kid = new Kid(game, level1);
 
       level1.Bowls = [];
       level1.Bowls.push(new Bowl(50, 340, this.RecipeBook, level1, this.player));
@@ -92,6 +93,9 @@ window.onload = function(){
 
       level1.addChild(trashcan);
       level1.addChild(kid);
+	  
+	  var inButton = new InRecipe(game);
+	  level1.addChild(inButton);
 
       game.pushScene(level1);
 
