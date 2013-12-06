@@ -13,6 +13,7 @@ lookupShop = function(name) {
 
 newShop = function(game, level1) {
    var shopScene = new Scene();
+   shopScene.backgroundColor = '#FAF8CD';
 
    var background = new Sprite(640, 960);
    background.image = game.assets['images/background.png'];
@@ -28,23 +29,43 @@ newShop = function(game, level1) {
    shopIngredients.push(new StrawberryShop(game, shopScene));
    shopIngredients.push(new PieCrustShop(game, shopScene));
 
-   shopScene.addChild(background);
+   // shopScene.addChild(background);
+
    for (var i in shopIngredients) {
       shopScene.addChild(shopIngredients[i]);
       shopIngredients[i].addAmt(10);
    }
 
    var shopLabel = new Label('Shop');
-   shopLabel.font = 'bold 64px Arial';
-   shopLabel.color = 'black';
-   shopLabel.x = 240;
+   shopLabel.font = '72px "Dawning of a new day"';
+   shopLabel.color = '#CF4C71';
+   shopLabel.textAlign = 'center';
+   shopLabel.width = '640';
    shopLabel.y = 20;
 
-   var nextLevelLabel = new Label('Begin Next Level');
-   nextLevelLabel.font = 'bold 24px Arial';
-   nextLevelLabel.color = 'black';
-   nextLevelLabel.x = 400;
-   nextLevelLabel.y = 920;
+   var levelNum = new Label('Level ' + 1);
+   levelNum.font = '34px "Port Lligat Slab"';
+   levelNum.color = 'black';
+   levelNum.x = 20;
+   levelNum.y = 15;
+
+   var currentMoney = new Label();
+   currentMoney.font = '34px "Port Lligat Slab"';
+   currentMoney.textAlign = 'right';
+   currentMoney.color = 'black';
+   currentMoney.width = '620';
+   currentMoney.y = 15;
+
+   currentMoney.onenterframe = function() {
+      this.text = ('$' + playerMoney);
+   };
+
+   var nextLevelLabel = new Label('I\'m ready!');
+   nextLevelLabel.font = '36px "Port Lligat Slab"';
+   nextLevelLabel.color = '#CF4C71';
+   nextLevelLabel.textAlign = 'center';
+   nextLevelLabel.width = '640';
+   nextLevelLabel.y = 880;
    nextLevelLabel.buttonMode = 'a';
 
    nextLevelLabel.onenterframe = function() {
@@ -52,17 +73,8 @@ newShop = function(game, level1) {
          game.popScene();
    };
 
-   var currentMoney = new Label('funds: ' + playerMoney);
-   currentMoney.font = 'bold 24px Arial';
-   currentMoney.color = 'black';
-   currentMoney.x = 450;
-   currentMoney.y = 130;
-
-   currentMoney.onenterframe = function() {
-      this.text = ('funds: ' + playerMoney);
-   };
-
    shopScene.addChild(shopLabel);
+   shopScene.addChild(levelNum);
    shopScene.addChild(nextLevelLabel);
    shopScene.addChild(currentMoney);
 
@@ -71,26 +83,26 @@ newShop = function(game, level1) {
 
 Shop = Class.create(Sprite, {
    initialize: function(place, name, x, y, cost, shopScene) {
-      Sprite.call(this, 200, 100);
+      Sprite.call(this, 100, 100);
       this.shopScene = shopScene;
-      this.image = game.assets['images/shopImages.png'];
+      this.image = game.assets['images/ingredient.png'];
       this.x = x;
       this.y = y;
       this.cost = cost;
       this.name = name;
       this.amount = 0;
 
-      this.label = new Label('');
-      this.label.font = 'bold 18px Arial';
-      this.label.color = 'black';
-      this.label.x = x;
-      this.label.y = y;
+      this.labelInfo = new Label();
+      this.labelInfo.font = '24px "Port Lligat Slab"';
+      this.labelInfo.color = 'black';
+      this.labelInfo.x = x;
+      this.labelInfo.y = y+105;
 
-      this.label1 = new Label('');
-      this.label1.font = 'bold 18px Arial';
-      this.label1.color = 'black';
-      this.label1.x = x;
-      this.label1.y = y+80;
+      this.labelInventory = new Label();
+      this.labelInventory.font = 'bold 18px "Port Lligat Slab"';
+      this.labelInventory.color = 'black';
+      this.labelInventory.x = x;
+      this.labelInventory.y = y;
 
       this.clicked = false;
       world = place;
@@ -121,8 +133,9 @@ Shop = Class.create(Sprite, {
       var location = lookupShop(this.name);
       var own = playerItems[location].amount;
 
-      this.label.text = "amount: " + this.amount + ", cost: " + this.cost;
-      this.label1.text = "own: " + own;
+      this.labelInfo.text = 'Stock: ' + this.amount +
+         '<br />Cost: $' + this.cost;
+      this.labelInventory.text = own;
    },
 
    ontouchend: function() {
@@ -154,8 +167,8 @@ Shop = Class.create(Sprite, {
    },
 
    onaddedtoscene: function() {
-      this.shopScene.addChild(this.label);
-      this.shopScene.addChild(this.label1);
+      this.shopScene.addChild(this.labelInfo);
+      this.shopScene.addChild(this.labelInventory);
    }
 });
 
@@ -168,56 +181,56 @@ CakeBatterShop = Class.create(Shop, {
 
 CookieDoughShop = Class.create(Shop, {
    initialize: function(place, shopScene) {
-      Shop.call(this, place, 'CookieDough', 340, 200, 50, shopScene);
+      Shop.call(this, place, 'CookieDough', 260, 200, 50, shopScene);
       this.frame = 1;
    }
 });
 
 PieCrustShop = Class.create(Shop, {
    initialize: function(place, shopScene) {
-      Shop.call(this, place, 'PieCrust', 50, 350, 50, shopScene);
+      Shop.call(this, place, 'PieCrust', 470, 200, 50, shopScene);
       this.frame = 2;
    }
 });
 
 IceCreamShop = Class.create(Shop, {
    initialize: function(place, shopScene) {
-      Shop.call(this, place, 'Icecream', 340, 350, 50, shopScene);
+      Shop.call(this, place, 'Icecream', 50, 420, 50, shopScene);
       this.frame = 3;
    }
 });
 
 CreamShop = Class.create(Shop, {
    initialize: function(place, shopScene) {
-      Shop.call(this, place, 'Cream', 50, 500, 50, shopScene);
+      Shop.call(this, place, 'Cream', 260, 420, 50, shopScene);
       this.frame = 4;
    }
 });
 
 IcingShop = Class.create(Shop, {
    initialize: function(place, shopScene) {
-      Shop.call(this, place, 'Icing', 340, 500, 50, shopScene);
+      Shop.call(this, place, 'Icing', 470, 420, 50, shopScene);
       this.frame = 5;
    }
 });
 
 ChocolateShop = Class.create(Shop, {
    initialize: function(place, shopScene) {
-      Shop.call(this, place, 'Chocolate', 50, 650, 50, shopScene);
+      Shop.call(this, place, 'Chocolate', 50, 640, 50, shopScene);
       this.frame = 6;
    }
 });
 
 VanillaShop = Class.create(Shop, {
    initialize: function(place, shopScene) {
-      Shop.call(this, place, 'Vanilla', 340, 650, 50, shopScene);
+      Shop.call(this, place, 'Vanilla', 250, 640, 50, shopScene);
       this.frame = 7;
    }
 });
 
 StrawberryShop = Class.create(Shop, {
    initialize: function(place, shopScene) {
-      Shop.call(this, place, 'Strawberry', 50, 800, 50, shopScene);
+      Shop.call(this, place, 'Strawberry', 470, 640, 50, shopScene);
       this.frame = 8;
    }
 });

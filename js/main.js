@@ -7,7 +7,24 @@ var playerItems = [];
 var playerRecipes = [];
 var yumDesserts = [];
 
-window.onload = function(){
+window.onload = function() {
+   // Load fonts
+   WebFontConfig = {
+      google: { families: [ 'Port+Lligat+Slab::latin', 'Dawning+of+a+New+Day::latin' ] },
+      loading: loadGame
+   };
+   (function() {
+      var wf = document.createElement('script');
+      wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+         '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      wf.type = 'text/javascript';
+      wf.async = 'true';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wf, s);
+   })();
+};
+
+loadGame = function() {
    game = new Core(640, 960);
    game.fps = 15;
 
@@ -97,8 +114,8 @@ window.onload = function(){
       level1.addChild(trashcan);
       level1.addChild(kid);
 
-	  var inButton = new InRecipe(game);
-	  level1.addChild(inButton);
+     var inButton = new InRecipe(game);
+     level1.addChild(inButton);
 
       game.pushScene(level1);
 
@@ -107,4 +124,4 @@ window.onload = function(){
     };
 
     game.start();
-};
+}
