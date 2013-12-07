@@ -1,20 +1,18 @@
 Player = Class.create({
-	initialize: function(items, recipes) {
-		var money = 0;
-		var health = 100;
-      this.items = items;
-      this.recipes = recipes;
-	},
-   
-   // getIngredients: function() {
-   //    return this.items;
-   // },
-   
-   // getRecipes: function() {
-   //    return this.recipes;
-   // },
-
-	addMoney: function(dolla) {
-		this.money += dolla;
-	}
+   initialize: function() {
+      this.money = 2000;
+      this.health = 100;
+      
+      this.items = {
+         CakeBatter: 0,
+         CookieDough:0,
+         Icing:      0,
+         IceCream:   0,
+         Vanilla:    0,
+         Chocolate:  0,
+         Cream:      0,
+         Strawberry: 0,
+         PieCrust:   0
+      }
+   },
 });

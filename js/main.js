@@ -1,18 +1,30 @@
 enchant();
 
 this.checkClicked = true;
-var playerMoney = 2000;
-var playerHealth = 100;
-var playerItems = [];
-var playerRecipes = [];
+
+this.player       = null;
+this.recipebook   = null;
+this.ingredients  = null;
+
+this.color = {
+   lightYellow:   '#FAF8CD',
+   pink:          '#CF4C71'
+};
+
+this.font = {
+   plain:   '"Yanone Kaffeesatz"',
+   script:  '"Dawning of a New Day"'
+};
+
 var yumDesserts = [];
 
 window.onload = function() {
    // Load fonts
    WebFontConfig = {
-      google: { families: [ 'Port+Lligat+Slab::latin', 'Dawning+of+a+New+Day::latin' ] },
+      google: { families: [ 'Yanone+Kaffeesatz:400,700:latin', 'Dawning+of+a+New+Day::latin' ] },
       loading: loadGame
    };
+
    (function() {
       var wf = document.createElement('script');
       wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
@@ -53,86 +65,64 @@ loadGame = function() {
       'images/tutorials/8.png'
    );
 
-    game.onload = function(){
+   game.onload = function() {
+      player      = new Player();
+      recipebook  = initRecipebook();
+      ingredients = initIngredients();
 
-      var level1 = new Scene();
-      var background = new Sprite(640, 960);
-      background.image = game.assets['images/background.png'];
+      var startMenu = startGame();
+      var level = new Level(1);
+      var shop = new Shop(level);
 
-      // Recipes
-      this.RecipeBook = [];
-      this.RecipeBook.push(new ChocolateCake());
-      this.RecipeBook.push(new ChocoStrawCake());
-      this.RecipeBook.push(new VanillaCake());
-      this.RecipeBook.push(new StrawShortCake());
-      this.RecipeBook.push(new BirthdayCake());
-      this.RecipeBook.push(new ChocolateIceCream());
-      this.RecipeBook.push(new VanillaIceCream());
-      this.RecipeBook.push(new StrawberryIceCream());
-      this.RecipeBook.push(new NeapolitanIceCream());
-      this.RecipeBook.push(new Cookie());
-      this.RecipeBook.push(new IcingCookie());
-      this.RecipeBook.push(new ChocolatePie());
-      this.RecipeBook.push(new StrawberryPie());
-      this.RecipeBook.push(new OriginalPie());
-      this.RecipeBook.push(new IceCreamPie());
-      this.RecipeBook.push(new ChocoCoverStraw());
+      var kid1 = new Kid( 50, 250);
+      var kid2 = new Kid(250, 120);
+      var kid3 = new Kid(450, 120);
 
-      // Ingredients
-      // what is the purpose of passing game to each ingredient?
-      var Ingredients = [];
-      Ingredients.push(new CakeBatter(level1));
-      Ingredients.push(new CookieDough(level1));
-      Ingredients.push(new PieCrust(level1));
-      Ingredients.push(new Icing(level1));
-      Ingredients.push(new IceCream(level1));
-      Ingredients.push(new Vanilla(level1));
-      Ingredients.push(new Chocolate(level1));
-      Ingredients.push(new Cream(level1));
-      Ingredients.push(new Strawberry(level1));
+      // level.addKid(new Kid(), 1);
+      level.addChild(kid1);
+      level.addChild(kid2);
+      level.addChild(kid3);
 
-      playerItems = Ingredients;
-      playerRecipes = this.RecipeBook;
-      this.player = new Player(Ingredients, this.RecipeBook);
-
-      var kid = new Kid(game, level1, 50, 250);
-      var kid2 = new Kid(game, level1, 250, 120);
-      var kid3 = new Kid(game, level1, 450, 120);
-
-      level1.Bowls = [];
-      level1.Bowls.push(new Bowl(50, 340, this.RecipeBook, level1, this.player));
-      level1.Bowls.push(new Bowl(250, 340, this.RecipeBook, level1, this.player));
-      level1.Bowls.push(new Bowl(450, 340, this.RecipeBook, level1, this.player));
-
-      level1.addChild(background);
-
-      for (var i in Ingredients) {
-         level1.addChild(Ingredients[i]);
-         //Ingredients[i].addAmt(10);
-      }
-
-      for (var i in level1.Bowls) {
-         level1.addChild(level1.Bowls[i]);
-      }
-
-      var trashcan = new Trash(level1, game);
-
-      level1.addChild(trashcan);
-      level1.addChild(kid);
-      level1.addChild(kid2);
-      level1.addChild(kid3);
-
-     var inButton = new InRecipe(game);
-     level1.addChild(inButton);
-
-      game.pushScene(level1);
-
-      var shop = newShop(game, level1);
+      // Push the scenes
+      game.pushScene(level);
       game.pushScene(shop);
-
-      var startMenu = startGame(game);
       game.pushScene(startMenu);
     };
 
     game.start();
-}
+};
+
+initRecipebook = function() {
+   return {
+      ChocolateCake:       new ChocolateCake(),
+      ChocoStrawCake:      new ChocoStrawCake(),
+      VanillaCake:         new VanillaCake(),
+      StrawShortCake:      new StrawShortCake(),
+      BirthdayCake:        new BirthdayCake(),
+      ChocolateIceCream:   new ChocolateIceCream(),
+      VanillaIceCream:     new VanillaIceCream(),
+      StrawberryIceCream:  new StrawberryIceCream(),
+      NeapolitanIceCream:  new NeapolitanIceCream(),
+      Cookie:              new Cookie(),
+      IcingCookie:         new IcingCookie(),
+      ChocolatePie:        new ChocolatePie(),
+      StrawberryPie:       new StrawberryPie(),
+      OriginalPie:         new OriginalPie(),
+      IceCreamPie:         new IceCreamPie(),
+      ChocoCoverStraw:     new ChocoCoverStraw()
+   };
+};
+
+initIngredients = function() {
+   return {
+      CakeBatter:    new CakeBatter(),
+      CookieDough:   new CookieDough(),
+      PieCrust:      new PieCrust(),
+      Icing:         new Icing(),
+      IceCream:      new IceCream(),
+      Vanilla:       new Vanilla(),
+      Chocolate:     new Chocolate(),
+      Cream:         new Cream(),
+      Strawberry:    new Strawberry()
+   };
+};

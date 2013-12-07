@@ -1,8 +1,6 @@
 Trash = Class.create(Sprite, {
-   initialize: function(level, game) {
+   initialize: function() {
       Sprite.call(this, 83, 80);
-      this.world = level;
-	   this.game = game;
 
       this.image = game.assets['images/trash.png'];
       this.x = 545;
@@ -12,29 +10,30 @@ Trash = Class.create(Sprite, {
    ontouchend: function() {
       //throw away mixing bowl or ingredient clicked.  Reset mixing bowl with new one
       //or just disable the click of the ingredient.
-      for (var i in this.world.Bowls) {
-         if (this.world.Bowls[i].trashing) {
-            var x = this.world.Bowls[i].x;
-            var y = this.world.Bowls[i].y;
-            var len = this.world.Bowls.length;
+      for (var i in this.scene.bowls) {
+         if (this.scene.bowls[i].trashing) {
+            var x = this.scene.bowls[i].x;
+            var y = this.scene.bowls[i].y;
+            var len = this.scene.bowls.length;
 
-            this.world.removeChild(this.world.Bowls[i]);
+            this.scene.removeChild(this.scene.bowls[i]);
 
             if (i == 0) {
-               this.world.Bowls.shift();
+               this.scene.bowls.shift();
             }
             else if (i == len - 1) {
-               this.world.Bowls.pop();
+               this.scene.bowls.pop();
             }
             else {
                var array = [];
-               array[0] = this.world.Bowls[0];
-               array[1] = (this.world.Bowls[len-1]);
-               this.world.Bowls = array;
+               array[0] = this.scene.bowls[0];
+               array[1] = this.scene.bowls[len-1];
+               this.scene.bowls = array;
             }
-            var newBowl = new Bowl(x, y, this.game.RecipeBook, this.world, this.game.player);
-            this.world.Bowls.push(newBowl);
-            this.world.addChild(newBowl);
+
+            var newBowl = new Bowl(x, y);
+            this.scene.bowls.push(newBowl);
+            this.scene.addChild(newBowl);
          }
       }
    }

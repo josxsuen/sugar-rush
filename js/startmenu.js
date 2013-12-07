@@ -1,4 +1,4 @@
-startGame = function(game) {
+startGame = function() {
 	var gameScene = new Scene();
 
 	gameScene.addChild(new StartMenu(game));
