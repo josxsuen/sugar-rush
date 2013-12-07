@@ -24,47 +24,87 @@ eatDessert = function(level, world, i) {
    level.addChild(newBowl);
 }
 
-
-
-
 Kid = Class.create(Sprite, {
-   initialize: function(game, level) {
+   initialize: function(game, level, spotX, spotY) {
       Sprite.call(this, 119, 200);
       var happiness = 100; //100 * game.fps * duration
       var tolerance = 1;        //{1, 1/3, 2/3}
-      this.preference;
-      this.randomNum;
-      var state = ['WAIT', 'UNFED', 'FED', 'END'];
-      var currentState;
       var timerFlag = false;
+      var timer = 100;
+      var currentState = 'WAITING';
+      var states = ['WAITING', 'EXITING', 'ENTERING', 'EATING'];
+      var bubble;
+      var desire;
+      
       this.world = game;
-      this.level = level;
-           
+      this.level = level;  
+      this.preference = this.world.RecipeBook[3];
+      this.bubble = null;
+      this.timer = 100;
+      this.image = game.assets['images/kid.png'];
+      //this.preference = this.world.RecipeBook[random(this.world.RecipeBook.length-1)];
       this.addEventListener(Event.ENTER_FRAME, function() {  
-         if (this.timerFlag) {
-            this.moveBy(15, 0); //runs off screen
-            if (this.x > this.world.width + this.width/2)
-               this.level.removeChild(this);
+         switch(this.currentState) {
+            case 'WAITING':
+               if (this.bubble !== null) {
+                  if (this.timer-- === 0) {
+                     this.level.removeChild(this.bubble);
+                     this.level.removeChild(this.desire);
+                     this.bubble = null;
+                     this.desire = null;
+                     this.timer = 100;
+                  }
+               }
+               else {
+                  if (this.timer-- === 0) {
+                     this.bubble = new Sprite(120, 120);
+                     this.bubble.image = game.assets['images/bubble.png'];
+                     this.bubble.x = this.x + this.bubble.width/3;
+                     this.bubble.y = this.y - this.bubble.height + 20;
+                     this.level.addChild(this.bubble);
+                     
+                     this.desire = new Sprite(120, 100);
+                     this.desire.image = this.preference.image;
+                     this.desire.x = this.bubble.x;
+                     this.desire.y = this.bubble.y;
+                     this.level.addChild(this.desire);
+      
+                     this.timer = 100;
+                  }
+               }
+               break;
+            case 'ENTERING':
+               if (this.x < spotX) {
+                  this.x += 5;
+               }
+               else
+                  this.currentState = 'WAITING';
+               break;
+            case 'EXITING':
+               if (this.bubble) {
+                  this.level.removeChild(this.bubble);
+                  this.level.removeChild(this.desire);
+                  this.bubble = null;
+                  this.desire = null;                  
+               }
+            
+               this.moveBy(15, 0); //runs off screen
+               if (this.x > this.world.width + this.width/2)
+                  this.level.removeChild(this);
+               break;
+            default:
+               
          }
       });
    },
    
-   random: function() {
-      this.randomNum = Math.floor(Math.random() * this.world.RecipeBook.length);
-      this.preference = this.world.RecipeBook[0];
-      //this.preference = this.player.getRecipes(randomNum);
-   },
-   
    onaddedtoscene: function() {
-      this.currentState = 'WAIT';
+      this.currentState = 'ENTERING';
       this.frame = 0;
-      this.random();
+      this.x = -50;
+      this.y = 120;
    },
 
-   newBubble: function(ingredient) {
-      //Add a speech bubble object displaying a preferred ingredient
-   },   
-   
    calculateScore: function() {
       // the score is based on how fast the kid was served. 
       // will work on this more
@@ -101,6 +141,10 @@ Kid = Class.create(Sprite, {
             break;
          }
       }
-      this.timerFlag = true;
+      this.currentState = 'EXITING';
    }
 });
+
+random = function(num) {
+   return Math.floor(Math.random() * num);
+};
