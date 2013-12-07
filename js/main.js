@@ -40,7 +40,17 @@ loadGame = function() {
       'images/bomb.png',
       'images/recipebook.png',
       'images/book.png',
-      'images/close.png'
+      'images/close.png',
+      'images/tutorial.png',
+      'images/play.png',
+      'images/tutorials/1.png',
+      'images/tutorials/2.png',
+      'images/tutorials/3.png',
+      'images/tutorials/4.png',
+      'images/tutorials/5.png',
+      'images/tutorials/6.png',
+      'images/tutorials/7.png',
+      'images/tutorials/8.png'
    );
 
     game.onload = function(){
@@ -119,6 +129,9 @@ loadGame = function() {
 
       var shop = newShop(game, level1);
       game.pushScene(shop);
+
+      var startMenu = startGame(game);
+      game.pushScene(startMenu);
     };
 
     game.start();
