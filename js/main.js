@@ -85,18 +85,14 @@ loadGame = function() {
       playerRecipes = this.RecipeBook;
       this.player = new Player(Ingredients, this.RecipeBook);
 
-      var kid = new Kid(game, level1);
+      var kid = new Kid(game, level1, 50, 250);
+      var kid2 = new Kid(game, level1, 250, 120);
+      var kid3 = new Kid(game, level1, 450, 120);
 
       level1.Bowls = [];
       level1.Bowls.push(new Bowl(50, 340, this.RecipeBook, level1, this.player));
       level1.Bowls.push(new Bowl(250, 340, this.RecipeBook, level1, this.player));
       level1.Bowls.push(new Bowl(450, 340, this.RecipeBook, level1, this.player));
-
-
-      kid.image = game.assets['images/kid.png'];
-      kid.x = 50;
-      kid.y = 120;
-
 
       level1.addChild(background);
 
@@ -113,6 +109,8 @@ loadGame = function() {
 
       level1.addChild(trashcan);
       level1.addChild(kid);
+      level1.addChild(kid2);
+      level1.addChild(kid3);
 
      var inButton = new InRecipe(game);
      level1.addChild(inButton);
