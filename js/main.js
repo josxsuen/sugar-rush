@@ -38,7 +38,7 @@ window.onload = function() {
 
 loadGame = function() {
    game = new Core(640, 960);
-   game.fps = 15;
+   game.fps = 30;
 
    game.preload(
       'images/background.png',
@@ -71,17 +71,8 @@ loadGame = function() {
       ingredients = initIngredients();
 
       var startMenu = startGame();
-      var level = new Level(1);
+      var level = new Level(5);
       var shop = new Shop(level);
-
-      var kid1 = new Kid( 50, 250);
-      var kid2 = new Kid(250, 120);
-      var kid3 = new Kid(450, 120);
-
-      // level.addKid(new Kid(), 1);
-      level.addChild(kid1);
-      level.addChild(kid2);
-      level.addChild(kid3);
 
       // Push the scenes
       game.pushScene(level);
