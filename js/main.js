@@ -2,6 +2,7 @@ enchant();
 
 this.checkClicked = true;
 
+this.arr          = null;
 this.player       = null;
 this.recipebook   = null;
 this.ingredients  = null;
@@ -82,15 +83,17 @@ loadGame = function() {
       player      = new Player();
       recipebook  = initRecipebook();
       ingredients = initIngredients();
+      arr         = [];
 
       var splash  = new Splash();//startGame();
       var level   = new Level(5);
       var shop    = new Shop(level);
 
       //Numbers the recipes
-      recipebook.arr = [];
-      for (var i in recipebook.valueOf())
-         recipebook.arr.push(i);
+      for (var i in recipebook.valueOf()) {
+         arr.push(i);
+      }
+      console.log(arr);
       
       // Push the scenes
       game.pushScene(level);

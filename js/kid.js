@@ -155,7 +155,7 @@ Kid = Class.create(Sprite, {
    },
    
    getRandomRecipe: function() {
-      return recipebook.arr[Math.floor(Math.random()*Math.floor(Math.random()*16))];
+      return arr[Math.floor(Math.random()*Math.floor(Math.random()*16))];
    }
 });
 
