@@ -27,44 +27,35 @@ eatDessert = function(level, i) {
 Kid = Class.create(Sprite, {
    initialize: function(spotX) {
       Sprite.call(this, 119, 200);
-      this.happiness = 100; //100 * game.fps * duration
+      this.happiness = 100 * 10; //100 * duration
       this.tolerance = 1;        //{1, 1/3, 2/3}
-      this.timer = 100;
       this.currentState = 'WAITING';
       this.states = ['WAITING', 'EXITING', 'ENTERING', 'EATING'];
-      this.countTimer = 500;
       this.spotX = spotX;
 
       this.preference = recipebook['ChocolateCake'];
       //this.preference = recipebook[random(recipebook.length-1)];
       this.bubble = null;
-      this.timer = 100;
+      this.bubbleTimer = 100;
+      this.waitTimer = this.happiness;
       this.image = game.assets['images/kid.png'];
       this.imageFrame = Math.floor(Math.random()*5) * 5;
    },
 
    onenterframe: function() {
-      this.countTimer--;
-      if (this.countTimer <= 0) {
-         this.moveBy(15, 0); //runs off screen
-         if (this.x > this.scene.width + this.width/2)
-            this.scene.removeChild(this);
-         game.assets['images/sounds/eww.wav'].play();
-      }
-      
       switch(this.currentState) {
          case 'WAITING':
             if (this.bubble !== null) {
-               if (this.timer-- === 0) {
+               if (this.bubbleTimer-- === 0) {
                   this.scene.removeChild(this.bubble);
                   this.scene.removeChild(this.desire);
                   this.bubble = null;
                   this.desire = null;
-                  this.timer = 100;
+                  this.bubbleTimer = 100;
                }
             }
             else {
-               if (this.timer-- === 0) {
+               if (this.bubbleTimer-- === 0) {
                   this.bubble = new Sprite(120, 120);
                   this.bubble.image = game.assets['images/bubble.png'];
                   this.bubble.x = this.x + this.bubble.width/3;
@@ -77,9 +68,19 @@ Kid = Class.create(Sprite, {
                   this.desire.y = this.bubble.y;
                   this.scene.addChild(this.desire);
    
-                  this.timer = 100;
+                  this.bubbleTimer = 100;
                }
             }
+            
+            if (!this.waitTimer--)
+               this.currentState = 'EXITING';
+            else if (this.waitTimer < this.happiness*0.05)
+               this.frame = this.imageFrame+3;              
+            else if (this.waitTimer < this.happiness*0.35)
+               this.frame = this.imageFrame+2;
+            else if (this.waitTimer < this.happiness*0.60)
+               this.frame = this.imageFrame+1;              
+               
             break;
          case 'ENTERING':
             if (this.x < this.spotX) {
@@ -128,7 +129,6 @@ Kid = Class.create(Sprite, {
 
    ontouchend: function() {
       var tLevel = 0;
-      var isLiked = false;
       for (var i in yumDesserts) {
          //if dessert is clicked
          if (yumDesserts[i].feed) {
@@ -146,21 +146,17 @@ Kid = Class.create(Sprite, {
                }
             }
             if (tLevel > 0) {
-               isLiked = true;
                game.assets['images/sounds/mmm.wav'].play();
                eatDessert(this.scene, i);
                this.frame = this.imageFrame+4;
             }
             else {
+               game.assets['images/sounds/eww.wav'].play();
                this.frame = this.imageFrame+3;
             }
+            this.currentState = 'EXITING';
             break;
          }
       }
-      this.currentState = 'EXITING';
    }
 });
-
-random = function(num) {
-   return Math.floor(Math.random() * num);
-};
