@@ -1,28 +1,3 @@
-eatDessert = function(level, i) {
-   var x = yumDesserts[i].x;
-   var y = yumDesserts[i].y;
-   var len = yumDesserts.length;
-   
-   //remove dessert
-   level.removeChild(yumDesserts[i]);
-   if (i == 0) {
-      yumDesserts.shift();
-   }
-   else if (i == len - 1) {
-      yumDesserts.pop();
-   }
-   else {
-      var array = [];
-      array[0] = yumDesserts[0];
-      array[1] = yumDesserts[len - 1];
-      yumDesserts = array;
-   }
-   
-   //add bowl
-   var newBowl = new Bowl(x, y, player);
-   level.bowls.push(newBowl);
-   level.addChild(newBowl);
-};
 
 Kid = Class.create(Sprite, {
    initialize: function(slotX) {
@@ -122,35 +97,42 @@ Kid = Class.create(Sprite, {
    },
 
    ontouchend: function() {
-      var tLevel = 0;
-      for (var i in yumDesserts) {
-         //if dessert is clicked
-         if (yumDesserts[i].feed) {
-            //dessert exactly matches wanted dessert
-            //make this based on preference.  go through insides and match them up.
-            //0-3points possible. 1point for each matched ingredient.
-            for (var k in this.preference.insides) {
-               for (var l in yumDesserts[i].insides) {
-                  if (k == l) {
-                     if (this.preference.insides[k] > 0 && yumDesserts[i].insides[l] > 0) {
-                        tLevel++;
-                        yumDesserts[i].insides[l] -= 1;
-                     }
-                  }
-               }
+      var match = 0;
+
+      if (pendingAction === 'DESSERT') {
+         // Count matching ingredients
+         for (var k in this.preference.insides) {
+            var desiredAmt = this.preference.insides[k];
+            var actualAmt  = pendingObject.insides[k];
+
+            while (desiredAmt-- > 0 && actualAmt-- > 0) {
+               match++;
             }
-            if (tLevel > 0) {
-               game.assets['images/sounds/mmm.wav'].play();
-               eatDessert(this.scene, i);
-               this.frame = this.imageFrame+4;
-            }
-            else {
-               game.assets['images/sounds/eww.wav'].play();
-               this.frame = this.imageFrame+3;
-            }
-            this.currentState = 'EXITING';
-            break;
          }
+
+         // Remove dessert and add bowl
+         var ndx = this.scene.bowls.indexOf(pendingObject);
+         this.scene.removeChild(pendingObject);
+         this.scene.desserts.splice(ndx, 0);
+
+         var x = pendingObject.x;
+         var y = pendingObject.y;
+         this.scene.addBowl(x, y);
+
+         // Kid leaves happy or sad
+         if (match > 0) {
+            game.assets['sounds/mmm.wav'].play();
+            this.frame = this.imageFrame+4;
+         }
+         else {
+            game.assets['sounds/eww.wav'].play();
+            this.frame = this.imageFrame+3;
+         }
+         this.currentState = 'EXITING';
+      }
+      else {
+         pendingAction = 'NONE';
+         pendingObject = null;
       }
    },
    
@@ -158,4 +140,3 @@ Kid = Class.create(Sprite, {
       return arr[Math.floor(Math.random()*Math.floor(Math.random()*16))];
    }
 });
-

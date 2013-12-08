@@ -1,5 +1,4 @@
 // Dessert types
-// Note: may want to change to plain objects for simplicity
 
 Dessert = Class.create(Sprite, {
    initialize: function() {
@@ -17,10 +16,22 @@ Dessert = Class.create(Sprite, {
       };
       this.image = game.assets['images/dessert.png'];
       this.feed = false;
+      this.clicked = false;
    },
-   
-   ontouchend: function() {
-      this.feed = true;
+
+   onenterframe: function() {
+      this.image = game.assets['images/dessert' + (this === pendingObject ? 'select.png' : '.png')];
+   },
+
+   ontouchend: function() {      
+      if (pendingObject === this) {
+         pendingAction = 'NONE';
+         pendingObject = null;
+      }
+      else {
+         pendingAction = 'DESSERT';
+         pendingObject = this;
+      }
    }
 });
 

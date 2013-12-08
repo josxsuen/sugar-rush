@@ -8,33 +8,15 @@ Trash = Class.create(Sprite, {
    },
 
    ontouchend: function() {
-      //throw away mixing bowl  Reset mixing bowl with new one
-      //or just disable the click of the ingredient.
-      for (var i in this.scene.bowls) {
-         if (this.scene.bowls[i].trashing) {
-            var x = this.scene.bowls[i].x;
-            var y = this.scene.bowls[i].y;
-            var len = this.scene.bowls.length;
+      if (pendingAction === 'BOWL' || pendingAction === 'DESSERT') {
+         var ndx = this.scene.bowls.indexOf(pendingObject);
+         this.scene.removeChild(pendingObject);
+         this.scene.bowls.splice(ndx, 1);
 
-            this.scene.removeChild(this.scene.bowls[i]);
-
-            if (i == 0) {
-               this.scene.bowls.shift();
-            }
-            else if (i == len - 1) {
-               this.scene.bowls.pop();
-            }
-            else {
-               var array = [];
-               array[0] = this.scene.bowls[0];
-               array[1] = this.scene.bowls[len-1];
-               this.scene.bowls = array;
-            }
-
-            var newBowl = new Bowl(x, y);
-            this.scene.bowls.push(newBowl);
-            this.scene.addChild(newBowl);
-         }
+         // Replace with empty bowl
+         var x = pendingObject.x;
+         var y = pendingObject.y;
+         this.scene.addBowl(x, y);
       }
    }
 });

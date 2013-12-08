@@ -6,7 +6,7 @@ Bowl = Class.create(Sprite, {
       this.y = y;
       this.frame = 0;
 
-      this.trashing = false;
+      // this.trashing = false;
 
       this.contents = {
          CakeBatter: 0,
@@ -19,106 +19,75 @@ Bowl = Class.create(Sprite, {
          Cream:      0,
          Strawberry: 0
       };
+
       this.count = 0;
       this.open = true;
+      this.clicked = false;
    },
-   
+
    onenterframe: function() {
       if (this.count === 3) {
          this.checkRecipe();
          //this.open = false;
       }
+      this.image = game.assets['images/bowl' + (pendingObject === this ? 'select.png' : '.png')];
    },
-   
+
    checkRecipe: function() {
       var number = 0;
-
       var dessert;
 
       for (var r in recipebook) {
          var badMix = false;
-
          for (var i in this.contents) {
             if (this.contents[i] !== recipebook[r].insides[i]) {
                badMix = true;
             }
          }
-
          if (!badMix) {
             dessert = recipebook[r];
             break;
          }
       }
 
-      
       if (badMix) {
-         //bad mix
          this.frame = 3;
-         console.log("bad mix");
       }
       else {
-         //good mix. remove bowl. add dessert.
-         
          var x = this.x;
          var y = this.y;
-         var len = this.scene.bowls.length;
-         
-         //adding dessert
-         var toAdd = new dessert.constructor;
-         yumDesserts.push(toAdd);
-         toAdd.x = x;
-         toAdd.y = y;
-         this.scene.addChild(toAdd);
-         
-         //remove bowl
-         for (var i in this.scene.bowls) {
-            if (this.scene.bowls[i].x === x) {
-               var toRemove = this.scene.bowls[i];
-               this.scene.bowls.splice(i, 1);
-               this.scene.removeChild(toRemove);
-               // if (i === 0) {
-               //    this.scene.bowls.shift();
-               // }
-               // else if (i === len - 1) {
-               //    this.scene.bowls.pop();
-               // }
-               // else {
-               //    var array = [];
-               //    array[0] = this.scene.bowls[0];
-               //    array[1] = (this.scene.bowls[len-1]);
-               //    this.scene.bowls = array;
-               // }
-               break;
-            }
-         }
-         
-         console.log("good mix");
+
+         // Add dessert
+         var newDessert = new dessert.constructor;
+         newDessert.x = x;
+         newDessert.y = y;
+         this.scene.desserts.push(newDessert);
+         this.scene.addChild(newDessert);
+
+         // Remove bowl
+         var ndx = this.scene.bowls.indexOf(pendingObject);
+         this.scene.bowls.splice(ndx, 1);
+         this.scene.removeChild(this);
       }
-   },   
-   
+   },
+
    ontouchend: function() {
-      if (this.open) {
-         //check if no ingredient is clicked, true = not clicked.
-         var trash = true;
-         
-         // search list of ingredients
-         for (var i in ingredients) {
-            if (ingredients[i].clicked) {
-               // this.contents.push(list[i].name);
-               this.contents[ingredients[i].name]++;
-               this.frame++;
-               this.count++;
-               
-               ingredients[i].clicked = false;
-               checkClicked = true;
-               
-               trash = false;
-            }
-         }
-         
-         if (trash) {
-            this.trashing = true;
-         }
+      if (pendingAction === 'INGREDIENT' && this.open) {
+         pendingObject.amount--;
+         this.contents[pendingObject.name]++;
+         this.frame++;
+         this.count++;
+
+         pendingAction = 'NONE';
+         pendingObject = null;
+      }
+      else if (pendingObject === this) {
+         pendingAction = 'NONE';
+         pendingObject = null;
+      }
+      else {
+         pendingAction = 'BOWL';
+         pendingObject = this;
       }
    }
 });

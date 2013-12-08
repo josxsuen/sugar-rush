@@ -3,6 +3,8 @@ Shop = Class.create(Scene, {
       Scene.call(this);
       this.backgroundColor = color.lightYellow;
 
+      pendingAction = 'NONE';
+
       this.level = level;
       this.shopItems = initShopItems();
 

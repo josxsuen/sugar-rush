@@ -36,20 +36,19 @@ Ingredient = Class.create(Sprite, {
    },
 
    ontouchend: function() {
-      if (this.amount > 0 && checkClicked) {
-         this.minus();
-         this.clicked = true;
-         checkClicked = false;
+      if (pendingObject === this || this.amount <= 0) {
+         pendingAction = 'NONE';
+         pendingObject = null;
       }
-      else if (this.clicked && !checkClicked) {
-         this.clicked = false;
-         checkClicked = true;
-         this.add();
+      else {
+         pendingAction = 'INGREDIENT';
+         pendingObject = this;
       }
    },
 
    onenterframe: function() {
       this.updateLabel();
+      this.image = game.assets['images/ingredient' + (pendingObject === this ? 'select.png' : '.png')];
    },
 
    onaddedtoscene: function() {

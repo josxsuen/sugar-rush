@@ -22,8 +22,6 @@ ShopItem = Class.create(Sprite, {
       this.labelInventory.font = 'bold 36px ' + font.plain;
       this.labelInventory.x = x;
       this.labelInventory.y = y-10;
-
-      this.clicked = false;
    },
 
    updateLabel: function() {
@@ -34,16 +32,15 @@ ShopItem = Class.create(Sprite, {
 
    ontouchend: function() {
       if (this.amount <= 0) {
-         console.log('out of stock');
+         // show out of stock message
       }
       else if (player.money < this.cost) {
-         console.log('not enough money');
+         // show out of money message
       }
       else {
          player.money -= this.cost;
          this.amount--;
          ingredients[this.name].amount++;
-         console.log('purchased ' + this.name);
       }
    },
 

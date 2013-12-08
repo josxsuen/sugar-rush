@@ -1,6 +1,8 @@
 enchant();
 
 this.checkClicked = true;
+this.pendingAction= 'NONE'; // NONE, INGREDIENT, BOWL, DESSERT
+this.pendingObject= null;
 
 this.arr          = null;
 this.player       = null;
@@ -53,9 +55,12 @@ loadGame = function() {
    game.preload(
       'images/background.png',
       'images/bowl.png',
+      'images/bowlselect.png',
       'images/bubble.png',
       'images/dessert.png',
+      'images/dessertselect.png',
       'images/ingredient.png',
+      'images/ingredientselect.png',
       'images/kid.png',
       'images/recipebook.png',
       'images/recipebookbuttons.png',
@@ -71,12 +76,12 @@ loadGame = function() {
       'images/tutorials/6.png',
       'images/tutorials/7.png',
       'images/tutorials/8.png',
-      
-      'images/sounds/boop.wav',
-      'images/sounds/eww.wav',
-      'images/sounds/mixing.wav',
-      'images/sounds/mmm.wav',
-      'images/sounds/background.wav'
+
+      'sounds/boop.wav',
+      'sounds/eww.wav',
+      'sounds/mixing.wav',
+      'sounds/mmm.wav',
+      'sounds/background.wav'
    );
 
    game.onload = function() {
@@ -141,3 +146,17 @@ initIngredients = function() {
       Strawberry:    new Strawberry()
    };
 };
+
+// popup = function() {
+//    var box = new Scene();
+//    box.text = '';
+
+//    box.addEventListener('touchend', function() {
+//       game.popScene();
+//    });
+
+//    var label = new Label(box.text);
+//    box.addChild(label);
+
+//    game.pushScene(box);
+// };

@@ -25,6 +25,9 @@ Level = Class.create(Scene, {
          this.addChild(this.bowls[i]);
       }
 
+      // Room for finished desserts
+      this.desserts = [];
+
       // Add trashcan
       this.trashcan = new Trash();
       this.addChild(this.trashcan);
@@ -64,5 +67,11 @@ Level = Class.create(Scene, {
       this.addChild(kid);
       
       return kid;
+   },
+
+   addBowl: function(x, y) {
+      var newBowl = new Bowl(x, y);
+      this.bowls.push = newBowl;
+      this.addChild(newBowl);
    }
 });
