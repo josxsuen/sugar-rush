@@ -2,6 +2,7 @@ Level = Class.create(Scene, {
    initialize: function(num) {
       Scene.call(this);
 
+      // Set number of Kids to feed
       this.num = num;
 
       // Add background
@@ -30,17 +31,38 @@ Level = Class.create(Scene, {
 
       // Add recipebook button
       this.addChild(new RecipeBookEnter());
-
+      
+      // Add Slots
+      this.slot = [];
+      
+      // Add EventListener
+      this.addEventListener(Event.ENTER_FRAME, function() {
+         if (this.num-- > 0) {
+            if (!this.slot[0])
+               this.slot[0] = this.addKid(0);
+            else if (!this.slot[1])
+               this.slot[1] = this.addKid(1);
+            else if (!this.slot[2])
+               this.slot[2] = this.addKid(2);
+            else 
+               this.num++;
+         }
+      });
    },
 
-   addKid: function(kid, slot) {
+   addKid: function(slot) {
+      var kid;
+      var slotX;
+      
       switch (slot) {
-         case 1: kid.x =  50; break;
-         case 2: kid.x = 250; break;
-         case 3: kid.x = 450; break;
+         case 0: slotX =  50; break;
+         case 1: slotX = 250; break;
+         case 2: slotX = 450; break;
       }
-      kid.y = 120;
+      kid = new Kid(slotX);
 
       this.addChild(kid);
+      
+      return kid;
    }
 });
