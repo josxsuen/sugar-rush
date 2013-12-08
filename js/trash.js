@@ -8,7 +8,7 @@ Trash = Class.create(Sprite, {
    },
 
    ontouchend: function() {
-      //throw away mixing bowl or ingredient clicked.  Reset mixing bowl with new one
+      //throw away mixing bowl  Reset mixing bowl with new one
       //or just disable the click of the ingredient.
       for (var i in this.scene.bowls) {
          if (this.scene.bowls[i].trashing) {

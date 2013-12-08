@@ -24,9 +24,9 @@ Bowl = Class.create(Sprite, {
    },
    
    onenterframe: function() {
-      if (this.open && this.count === 3) {
+      if (this.count === 3) {
          this.checkRecipe();
-         this.open = false;
+         //this.open = false;
       }
    },
    
@@ -103,7 +103,7 @@ Bowl = Class.create(Sprite, {
          
          // search list of ingredients
          for (var i in ingredients) {
-            if (this.open && ingredients[i].clicked) {
+            if (ingredients[i].clicked) {
                // this.contents.push(list[i].name);
                this.contents[ingredients[i].name]++;
                this.frame++;
