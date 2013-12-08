@@ -11,6 +11,8 @@ Shop = Class.create(Scene, {
          this.shopItems[i].amount += 10;
       }
 
+      player.money += (level.num*500);
+
       // Title
       var shopLabel = new Label('Shop');
       shopLabel.font = '72px ' + font.script;

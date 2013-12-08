@@ -62,7 +62,12 @@ loadGame = function() {
       'images/tutorials/5.png',
       'images/tutorials/6.png',
       'images/tutorials/7.png',
-      'images/tutorials/8.png'
+      'images/tutorials/8.png',
+      'images/sounds/boop.wav',
+      'images/sounds/eww.wav',
+      'images/sounds/mixing.wav',
+      'images/sounds/mmm.wav',
+      'images/sounds/background.wav'
    );
 
    game.onload = function() {
@@ -78,6 +83,9 @@ loadGame = function() {
       game.pushScene(level);
       game.pushScene(shop);
       game.pushScene(startMenu);
+
+      this.bgm = game.assets['images/sounds/background.wav'];
+      this.bgm.play();
     };
 
     game.start();

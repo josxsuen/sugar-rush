@@ -56,7 +56,7 @@ ShopItem = Class.create(Sprite, {
 
 CakeBatterShop = Class.create(ShopItem, {
    initialize: function() {
-      ShopItem.call(this, 'CakeBatter', 50, 200, 50);
+      ShopItem.call(this, 'CakeBatter', 50, 200, 100);
       this.frame = 0;
    }
 });
@@ -77,7 +77,7 @@ PieCrustShop = Class.create(ShopItem, {
 
 IceCreamShop = Class.create(ShopItem, {
    initialize: function() {
-      ShopItem.call(this, 'IceCream', 50, 560, 50);
+      ShopItem.call(this, 'IceCream', 50, 560, 75);
       this.frame = 3;
    }
 });
@@ -91,14 +91,14 @@ CreamShop = Class.create(ShopItem, {
 
 IcingShop = Class.create(ShopItem, {
    initialize: function() {
-      ShopItem.call(this, 'Icing', 370, 200, 50);
+      ShopItem.call(this, 'Icing', 370, 200, 75);
       this.frame = 5;
    }
 });
 
 ChocolateShop = Class.create(ShopItem, {
    initialize: function() {
-      ShopItem.call(this, 'Chocolate', 370, 320, 50);
+      ShopItem.call(this, 'Chocolate', 370, 320, 100);
       this.frame = 6;
    }
 });

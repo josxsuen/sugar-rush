@@ -35,6 +35,7 @@ Kid = Class.create(Sprite, {
       this.states = ['WAITING', 'EXITING', 'ENTERING', 'EATING'];
       this.bubble;
       this.desire;
+      this.countTimer = 500;
 
       this.spotX = spotX;
 
@@ -46,10 +47,12 @@ Kid = Class.create(Sprite, {
    },
 
    onenterframe: function() {
-      if (this.timerFlag) {
+      this.countTimer--;
+      if (this.timerFlag || this.countTimer <= 0) {
          this.moveBy(15, 0); //runs off screen
          if (this.x > this.scene.width + this.width/2)
             this.scene.removeChild(this);
+         game.assets['images/sounds/eww.wav'].play();
       }
       
       switch(this.currentState) {
@@ -147,6 +150,7 @@ Kid = Class.create(Sprite, {
             }
             if (tLevel > 0) {
                isLiked = true;
+               game.assets['images/sounds/mmm.wav'].play();
                eatDessert(this.scene, i);
                this.frame = 4;
             }

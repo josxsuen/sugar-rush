@@ -1,6 +1,6 @@
 Player = Class.create({
    initialize: function() {
-      this.money = 2000;
+      this.money = 0;
       this.health = 100;
       
       this.items = {
