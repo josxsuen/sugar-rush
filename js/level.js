@@ -49,4 +49,19 @@ Level = Class.create(Scene, {
          }
       });
    },
+   
+   addKid: function(slot) {
+      var kid;
+      var slotX;
+      
+      switch(slot) {
+         case 0: slotX =  50; break;
+         case 1: slotX = 250; break;
+         case 2: slotX = 450; break;
+      }
+      kid = new Kid(slotX);
+      this.addChild(kid);
+      
+      return kid;
+   }
 });
