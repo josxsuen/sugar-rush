@@ -25,21 +25,21 @@ eatDessert = function(level, i) {
 };
 
 Kid = Class.create(Sprite, {
-   initialize: function(spotX) {
+   initialize: function(slotX) {
       Sprite.call(this, 119, 200);
-      this.happiness = 100 * 10; //100 * duration
+      this.happiness = 100 * 10; //100% * duration
       this.tolerance = 1;        //{1, 1/3, 2/3}
       this.currentState = 'WAITING';
       this.states = ['WAITING', 'EXITING', 'ENTERING', 'EATING'];
-      this.spotX = spotX;
+      this.slotX = slotX;
 
-      this.preference = recipebook['ChocolateCake'];
-      //this.preference = recipebook[random(recipebook.length-1)];
+      this.preference = recipebook[this.getRandomRecipe()];
       this.bubble = null;
       this.bubbleTimer = 100;
       this.waitTimer = this.happiness;
       this.image = game.assets['images/kid.png'];
       this.imageFrame = Math.floor(Math.random()*5) * 5;
+      this.getRandomRecipe();
    },
 
    onenterframe: function() {
@@ -63,7 +63,8 @@ Kid = Class.create(Sprite, {
                   this.scene.addChild(this.bubble);
                   
                   this.desire = new Sprite(120, 100);
-                  this.desire.image = this.preference.image;
+                  this.desire.image = game.assets['images/dessert.png'];
+                  this.desire.frame = this.preference.frame;
                   this.desire.x = this.bubble.x;
                   this.desire.y = this.bubble.y;
                   this.scene.addChild(this.desire);
@@ -83,9 +84,8 @@ Kid = Class.create(Sprite, {
                
             break;
          case 'ENTERING':
-            if (this.x < this.spotX) {
+            if (this.x < this.slotX)
                this.x += 5;
-            }
             else
                this.currentState = 'WAITING';
             break;
@@ -106,12 +106,6 @@ Kid = Class.create(Sprite, {
          default:
             
       }
-   },
-   
-   random: function() {
-      this.randomNum = Math.floor(Math.random() * game.recipebook.length);
-      this.preference = game.recipebook[0];
-      //this.preference = this.player.getRecipes(randomNum);
    },
    
    onaddedtoscene: function() {
@@ -158,5 +152,10 @@ Kid = Class.create(Sprite, {
             break;
          }
       }
+   },
+   
+   getRandomRecipe: function() {
+      return recipebook.arr[Math.floor(Math.random()*Math.floor(Math.random()*16))];
    }
 });
+

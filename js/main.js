@@ -87,6 +87,11 @@ loadGame = function() {
       var level   = new Level(5);
       var shop    = new Shop(level);
 
+      //Numbers the recipes
+      recipebook.arr = [];
+      for (var i in recipebook.valueOf())
+         recipebook.arr.push(i);
+      
       // Push the scenes
       game.pushScene(level);
       game.pushScene(shop);
