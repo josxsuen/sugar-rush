@@ -25,7 +25,7 @@ eatDessert = function(level, i) {
 };
 
 Kid = Class.create(Sprite, {
-   initialize: function(spotX, spotY) {
+   initialize: function(spotX) {
       Sprite.call(this, 119, 200);
       this.happiness = 100; //100 * game.fps * duration
       this.tolerance = 1;        //{1, 1/3, 2/3}
@@ -37,7 +37,6 @@ Kid = Class.create(Sprite, {
       this.desire;
 
       this.spotX = spotX;
-      this.spotY = spotY;
 
       this.preference = recipebook['ChocolateCake'];
       //this.preference = recipebook[random(recipebook.length-1)];
@@ -52,8 +51,7 @@ Kid = Class.create(Sprite, {
          if (this.x > this.scene.width + this.width/2)
             this.scene.removeChild(this);
       }
-
-
+      
       switch(this.currentState) {
          case 'WAITING':
             if (this.bubble !== null) {
@@ -99,8 +97,10 @@ Kid = Class.create(Sprite, {
             }
          
             this.moveBy(15, 0); //runs off screen
-            if (this.x > game.width + this.width/2)
+            if (this.x > game.width + this.width/2) {
+               this.scene.slot[this.scene.slot.indexOf(this)] = null;
                this.scene.removeChild(this);
+            }
             break;
          default:
             
@@ -115,7 +115,7 @@ Kid = Class.create(Sprite, {
    
    onaddedtoscene: function() {
       this.currentState = 'ENTERING';
-      this.frame = 0;
+      this.frame = Math.floor(Math.random()*5) * 5;;
       this.x = -50;
       this.y = 120;
    },
