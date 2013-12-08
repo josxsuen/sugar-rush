@@ -63,6 +63,13 @@ Bowl = Class.create(Sprite, {
          var y = this.y;
          var len = this.scene.bowls.length;
          
+         //adding dessert
+         var toAdd = new dessert.constructor;
+         yumDesserts.push(toAdd);
+         toAdd.x = x;
+         toAdd.y = y;
+         this.scene.addChild(toAdd);
+         
          //remove bowl
          for (var i in this.scene.bowls) {
             if (this.scene.bowls[i].x === x) {
@@ -84,13 +91,6 @@ Bowl = Class.create(Sprite, {
                break;
             }
          }
-         
-         //adding dessert
-         var toAdd = new dessert.constructor;
-         yumDesserts.push(toAdd);
-         toAdd.x = x;
-         toAdd.y = y;
-         this.scene.addChild(toAdd);
          
          console.log("good mix");
       }
