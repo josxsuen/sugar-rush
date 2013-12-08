@@ -22,10 +22,11 @@ Shop = Class.create(Scene, {
       shopLabel.y = 20;
 
       // Level number
-      var levelNum = new Label(this.level.num + ' kids');
+      var levelNum = new Label('Goal: ' + this.level.num + ' kids');
       levelNum.font = '40px ' + font.plain;
+      levelNum.textAlign = 'right';
       levelNum.color = 'black';
-      levelNum.x = 20;
+      levelNum.width = '620';
       levelNum.y = 15;
 
       // Money
@@ -34,19 +35,19 @@ Shop = Class.create(Scene, {
       currentMoney.textAlign = 'right';
       currentMoney.color = 'black';
       currentMoney.width = '620';
-      currentMoney.y = 15;
+      currentMoney.y = 55;
 
       currentMoney.onenterframe = function() {
          this.text = ('$' + player.money);
       };
 
       // Start button
-      var nextLevelLabel = new Label('Start Level');
+      var nextLevelLabel = new Label('Start!');
       nextLevelLabel.font = '56px ' + font.plain;
       nextLevelLabel.color = color.pink;
-      nextLevelLabel.textAlign = 'center';
-      nextLevelLabel.width = '640';
-      nextLevelLabel.y = 860;
+      nextLevelLabel.textAlign = 'right';
+      nextLevelLabel.width = '620';
+      nextLevelLabel.y = 880;
       nextLevelLabel.buttonMode = 'a';
 
       nextLevelLabel.onenterframe = function() {
@@ -58,6 +59,9 @@ Shop = Class.create(Scene, {
       this.addChild(levelNum);
       this.addChild(nextLevelLabel);
       this.addChild(currentMoney);
+
+      // Add recipebook button
+      this.addChild(new RecipeBookEnter());
    }
 });
 

@@ -8,9 +8,16 @@ this.ingredients  = null;
 
 this.color = {
    black:         '#000000',
-   lightBlue:     '#',
+   green:         '#6dc647',
+   lightBlue:     '#63bfec',
+   lightBrown:    '#ecbe7b',
+   lightRed:      '#f8a286',
    lightYellow:   '#FAF8CD',
+   orange:        '#fdbb12',
    pink:          '#CF4C71',
+   purple:        '#bd5da3',
+   white:         '#FFFFFF',
+   yellow:        '#fff107'
 };
 
 this.font = {
@@ -44,21 +51,16 @@ loadGame = function() {
 
    game.preload(
       'images/background.png',
-
-      'images/recipebook.png',
-      'images/book.png',
-      'images/close.png',
-
       'images/bowl.png',
+      'images/bubble.png',
       'images/dessert.png',
       'images/ingredient.png',
-      'images/trash.png',
-
-      'images/bubble.png',
       'images/kid.png',
-
+      'images/recipebook.png',
+      'images/recipebookbuttons.png',
       'images/splash.png',
       'images/splashbuttons.png',
+      'images/trash.png',
       'images/tutorialbuttons.png',
       'images/tutorials/1.png',
       'images/tutorials/2.png',

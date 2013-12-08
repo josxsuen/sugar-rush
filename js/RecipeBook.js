@@ -8,8 +8,9 @@ RecipeBook = Class.create(Sprite, {
 
 RecipeBookExit = Class.create(Sprite, {
    initialize: function() {
-      Sprite.call(this, 58, 70);
-      this.image = game.assets['images/close.png'];
+      Sprite.call(this, 60, 72);
+      this.image = game.assets['images/recipebookbuttons.png'];
+      this.frame = 1;
       this.x = 10;
       this.y = 880;
    },
@@ -21,8 +22,9 @@ RecipeBookExit = Class.create(Sprite, {
 
 RecipeBookEnter = Class.create(Sprite, {
    initialize: function() {
-      Sprite.call(this, 58, 70);
-      this.image = game.assets['images/book.png'];
+      Sprite.call(this, 60, 72);
+      this.image = game.assets['images/recipebookbuttons.png'];
+      this.frame = 0;
       this.x = 10;
       this.y = 880;
       this.recipeScene = new Scene();

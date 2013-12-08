@@ -10,19 +10,16 @@ ShopItem = Class.create(Sprite, {
 
       this.labelName = new Label(this.name);
       this.labelName.font = '32px ' + font.plain;
-      this.labelName.color = 'black';
       this.labelName.x = x+115;
       this.labelName.y = y-30;
 
       this.labelInfo = new Label();
       this.labelInfo.font = '36px ' + font.plain;
-      this.labelInfo.color = 'black';
       this.labelInfo.x = x+115;
       this.labelInfo.y = y+5;
 
       this.labelInventory = new Label();
       this.labelInventory.font = 'bold 36px ' + font.plain;
-      this.labelInventory.color = 'black';
       this.labelInventory.x = x;
       this.labelInventory.y = y-10;
 
@@ -65,6 +62,7 @@ CakeBatterShop = Class.create(ShopItem, {
    initialize: function(x, y, cost) {
       ShopItem.call(this, 'CakeBatter', x, y, cost);
       this.frame = 0;
+      this.labelName.color = color.green;
    }
 });
 
@@ -72,6 +70,7 @@ CookieDoughShop = Class.create(ShopItem, {
    initialize: function(x, y, cost) {
       ShopItem.call(this, 'CookieDough', x, y, cost);
       this.frame = 1;
+      this.labelName.color = color.purple;
    }
 });
 
@@ -79,6 +78,7 @@ PieCrustShop = Class.create(ShopItem, {
    initialize: function(x, y, cost) {
       ShopItem.call(this, 'PieCrust', x, y, cost);
       this.frame = 2;
+      this.labelName.color = '#aaa';
    }
 });
 
@@ -86,6 +86,7 @@ IceCreamShop = Class.create(ShopItem, {
    initialize: function(x, y, cost) {
       ShopItem.call(this, 'IceCream', x, y, cost);
       this.frame = 3;
+      this.labelName.color = color.black;
    }
 });
 
@@ -93,6 +94,7 @@ CreamShop = Class.create(ShopItem, {
    initialize: function(x, y, cost) {
       ShopItem.call(this, 'Cream', x, y, cost);
       this.frame = 4;
+      this.labelName.color = '#ccba00';
    }
 });
 
@@ -100,6 +102,7 @@ IcingShop = Class.create(ShopItem, {
    initialize: function(x, y, cost) {
       ShopItem.call(this, 'Icing', x, y, cost);
       this.frame = 5;
+      this.labelName.color = color.lightBlue;
    }
 });
 
@@ -107,6 +110,7 @@ ChocolateShop = Class.create(ShopItem, {
    initialize: function(x, y, cost) {
       ShopItem.call(this, 'Chocolate', x, y, cost);
       this.frame = 6;
+      this.labelName.color = color.orange;
    }
 });
 
@@ -114,6 +118,7 @@ VanillaShop = Class.create(ShopItem, {
    initialize: function(x, y, cost) {
       ShopItem.call(this, 'Vanilla', x, y, cost);
       this.frame = 7;
+      this.labelName.color = color.lightBrown;
    }
 });
 
@@ -121,5 +126,6 @@ StrawberryShop = Class.create(ShopItem, {
    initialize: function(x, y, cost) {
       ShopItem.call(this, 'Strawberry', x, y, cost);
       this.frame = 8;
+      this.labelName.color = color.lightRed;
    }
 });
