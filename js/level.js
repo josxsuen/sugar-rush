@@ -34,32 +34,33 @@ Level = Class.create(Scene, {
       
       // Add Slots
       this.slot = [];
-      
-      // Add EventListener
-      this.addEventListener(Event.ENTER_FRAME, function() {
-         if (this.num-- > 0) {
-            if (!this.slot[0])
-               this.slot[0] = this.addKid(0);
-            else if (!this.slot[1])
-               this.slot[1] = this.addKid(1);
-            else if (!this.slot[2])
-               this.slot[2] = this.addKid(2);
-            else 
-               this.num++;
-         }
-      });
    },
-   
+
+   onenterframe: function() {
+      if (this.num-- > 0) {
+         if (!this.slot[0])
+            this.slot[0] = this.addKid(0);
+         else if (!this.slot[1])
+            this.slot[1] = this.addKid(1);
+         else if (!this.slot[2])
+            this.slot[2] = this.addKid(2);
+         else 
+            this.num++;
+      }
+   },
+
    addKid: function(slot) {
       var kid;
       var slotX;
       
-      switch(slot) {
+      switch (slot) {
          case 0: slotX =  50; break;
          case 1: slotX = 250; break;
          case 2: slotX = 450; break;
       }
+
       kid = new Kid(slotX);
+      
       this.addChild(kid);
       
       return kid;

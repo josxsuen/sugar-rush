@@ -1,91 +1,81 @@
-startGame = function() {
-	var gameScene = new Scene();
+Splash = Class.create(Scene, {
+   initialize: function() {
+      Scene.call(this);
 
-	gameScene.addChild(new StartMenu(game));
-	gameScene.addChild(new OpenTutorial(game));
-	gameScene.addChild(new StartShop(game));
+      var background = new Sprite(640, 960);
+      background.image = game.assets['images/splash.png'];
 
-	return gameScene;
-}
+      var playButton = new Sprite(300, 100);
+      playButton.image = game.assets['images/splashbuttons.png'];
+      playButton.frame = 0;
+      playButton.x = 170;
+      playButton.y = 600;
+      playButton.addEventListener('touchend', function() {
+         game.popScene();
+      });
 
-startTutorial = function(game, tutorialNumber) {
-	var tutorialScene = new Scene();
+      var tutorialButton = new Sprite(300, 100);
+      tutorialButton.image = game.assets['images/splashbuttons.png'];
+      tutorialButton.frame = 1;
+      tutorialButton.x = 170;
+      tutorialButton.y = 720;
+      tutorialButton.addEventListener('touchend', function() {
+         game.pushScene(new Tutorial());
+      });
 
-	tutorialScene.addChild(tutorialNumber);
-	tutorialScene.addChild(new ExitTutorial(game));
-
-	if (tutorialNumber.number != 8)
-		tutorialScene.addChild(new NextTutorialButton(tutorialNumber.number+1));
-
-	return tutorialScene;
-}
-
-StartMenu = Class.create(Sprite, {
-	initialize: function(game) {
-		Sprite.call(this, 640, 960);
-		this.image = game.assets['images/background.png'];
-	}
+      this.addChild(background);
+      this.addChild(playButton);
+      this.addChild(tutorialButton);
+   },
 });
 
-StartShop = Class.create(Sprite, {
-	initialize: function(game) {
-      Sprite.call(this, 200, 100);
-      this.image = game.assets['images/play.png'];
-      this.game = game;
+tutorialbutton = function(frame, x, y) {
+   var button = new Sprite(200, 75);
+
+   button.image = game.assets['images/tutorialbuttons.png'];
+   button.frame = frame;
+   button.x = x;
+   button.y = y;
+
+   return button;
+};
+
+Tutorial = Class.create(Scene, {
+   initialize: function() {
+      Scene.call(this);
+      this.backgroundColor = 'rgba(0,0,0,0.8)';
+      this.num = 1;
+
+      this.exitButton = tutorialbutton(0,  10, 20);
+      this.exitButton.addEventListener('touchend', function() {
+         game.popScene();
+      });
+
+      this.prevButton = tutorialbutton(2, 230, 20);
+      this.prevButton.addEventListener('touchend', function() {
+         this.scene.num--;
+      });
+
+      this.nextButton = tutorialbutton(1, 430, 20);
+      this.nextButton.addEventListener('touchend', function() {
+         this.scene.num++;
+      });
+
+      this.slide = new Sprite(540, 810);
+      this.slide.image = game.assets['images/tutorials/1.png'];
+      this.slide.x = 50;
+      this.slide.y = 120;
+
+      this.addChild(this.exitButton);
+      this.addChild(this.prevButton);
+      this.addChild(this.nextButton);
+      this.addChild(this.slide);
    },
 
-   ontouchend: function() {
-      this.game.popScene();
+   onenterframe: function() {
+      this.slide.image = game.assets['images/tutorials/' + this.num + '.png'];
+
+      this.prevButton.visible = this.num !== 1;
+      this.nextButton.visible = this.num !== 8;
    }
-});
-
-OpenTutorial = Class.create(Sprite, {
-	initialize: function(game) {
-      Sprite.call(this, 200, 100);
-      this.x = 400;
-      this.y = 400;
-      this.tutorial = startTutorial(game, new Tutorial1(game, 2));
-      this.image = game.assets['images/tutorial.png'];
-      this.game = game;
-   },
-
-   ontouchend: function() {
-      this.game.pushScene(this.tutorial);
-   }
-});
-
-NextTutorialButton = Class.create(Sprite, {
-	initialize: function(nextNumber) {
-      Sprite.call(this, 200, 100);
-      this.image = game.assets['images/tutorial.png'];
-      this.x = 440;
-      this.game = game;
-      this.nextNumber = nextNumber;
-   },
-
-   ontouchend: function() {
-      this.game.popScene();
-      this.game.pushScene(startTutorial(game, new Tutorial1(game, this.nextNumber)));
-   }
-});
-
-
-ExitTutorial = Class.create(Sprite, {
-	initialize: function(game) {
-		Sprite.call(this, 200, 100);
-		this.game = game;
-		this.image = game.assets['images/bomb.png'];
-	},
-
-	ontouchend: function() {
-		this.game.popScene();
-	}
-});
-
-Tutorial1 = Class.create(Sprite, {
-	initialize: function(game, number) {
-		Sprite.call(this, 640, 960);
-		this.number = number;
-		this.image = game.assets['images/tutorials/' + number + '.png'];
-	}
 });

@@ -1,6 +1,6 @@
 Trash = Class.create(Sprite, {
    initialize: function() {
-      Sprite.call(this, 83, 80);
+      Sprite.call(this, 85, 82);
 
       this.image = game.assets['images/trash.png'];
       this.x = 545;

@@ -8,6 +8,12 @@ ShopItem = Class.create(Sprite, {
       this.name = name;
       this.amount = 0;
 
+      this.labelName = new Label(this.name);
+      this.labelName.font = '32px ' + font.plain;
+      this.labelName.color = 'black';
+      this.labelName.x = x+115;
+      this.labelName.y = y-30;
+
       this.labelInfo = new Label();
       this.labelInfo.font = '36px ' + font.plain;
       this.labelInfo.color = 'black';
@@ -49,70 +55,71 @@ ShopItem = Class.create(Sprite, {
    },
 
    onaddedtoscene: function() {
+      this.scene.addChild(this.labelName);
       this.scene.addChild(this.labelInfo);
       this.scene.addChild(this.labelInventory);
    }
 });
 
 CakeBatterShop = Class.create(ShopItem, {
-   initialize: function() {
-      ShopItem.call(this, 'CakeBatter', 50, 200, 100);
+   initialize: function(x, y, cost) {
+      ShopItem.call(this, 'CakeBatter', x, y, cost);
       this.frame = 0;
    }
 });
 
 CookieDoughShop = Class.create(ShopItem, {
-   initialize: function() {
-      ShopItem.call(this, 'CookieDough', 50, 320, 50);
+   initialize: function(x, y, cost) {
+      ShopItem.call(this, 'CookieDough', x, y, cost);
       this.frame = 1;
    }
 });
 
 PieCrustShop = Class.create(ShopItem, {
-   initialize: function() {
-      ShopItem.call(this, 'PieCrust', 50, 440, 50);
+   initialize: function(x, y, cost) {
+      ShopItem.call(this, 'PieCrust', x, y, cost);
       this.frame = 2;
    }
 });
 
 IceCreamShop = Class.create(ShopItem, {
-   initialize: function() {
-      ShopItem.call(this, 'IceCream', 50, 560, 75);
+   initialize: function(x, y, cost) {
+      ShopItem.call(this, 'IceCream', x, y, cost);
       this.frame = 3;
    }
 });
 
 CreamShop = Class.create(ShopItem, {
-   initialize: function() {
-      ShopItem.call(this, 'Cream', 50, 680, 50);
+   initialize: function(x, y, cost) {
+      ShopItem.call(this, 'Cream', x, y, cost);
       this.frame = 4;
    }
 });
 
 IcingShop = Class.create(ShopItem, {
-   initialize: function() {
-      ShopItem.call(this, 'Icing', 370, 200, 75);
+   initialize: function(x, y, cost) {
+      ShopItem.call(this, 'Icing', x, y, cost);
       this.frame = 5;
    }
 });
 
 ChocolateShop = Class.create(ShopItem, {
-   initialize: function() {
-      ShopItem.call(this, 'Chocolate', 370, 320, 100);
+   initialize: function(x, y, cost) {
+      ShopItem.call(this, 'Chocolate', x, y, cost);
       this.frame = 6;
    }
 });
 
 VanillaShop = Class.create(ShopItem, {
-   initialize: function() {
-      ShopItem.call(this, 'Vanilla', 370, 440, 50);
+   initialize: function(x, y, cost) {
+      ShopItem.call(this, 'Vanilla', x, y, cost);
       this.frame = 7;
    }
 });
 
 StrawberryShop = Class.create(ShopItem, {
-   initialize: function() {
-      ShopItem.call(this, 'Strawberry', 370, 560, 50);
+   initialize: function(x, y, cost) {
+      ShopItem.call(this, 'Strawberry', x, y, cost);
       this.frame = 8;
    }
 });

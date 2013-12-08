@@ -7,8 +7,10 @@ this.recipebook   = null;
 this.ingredients  = null;
 
 this.color = {
+   black:         '#000000',
+   lightBlue:     '#',
    lightYellow:   '#FAF8CD',
-   pink:          '#CF4C71'
+   pink:          '#CF4C71',
 };
 
 this.font = {
@@ -42,19 +44,22 @@ loadGame = function() {
 
    game.preload(
       'images/background.png',
-      'images/bubble.png',
-      'images/bowl.png',
-      'images/dessert.png',
-      'images/ingredient.png',
-      'images/kid.png',
-      'images/trash.png',
-      'images/shopImages.png',
-      'images/bomb.png',
+
       'images/recipebook.png',
       'images/book.png',
       'images/close.png',
-      'images/tutorial.png',
-      'images/play.png',
+
+      'images/bowl.png',
+      'images/dessert.png',
+      'images/ingredient.png',
+      'images/trash.png',
+
+      'images/bubble.png',
+      'images/kid.png',
+
+      'images/splash.png',
+      'images/splashbuttons.png',
+      'images/tutorialbuttons.png',
       'images/tutorials/1.png',
       'images/tutorials/2.png',
       'images/tutorials/3.png',
@@ -63,6 +68,7 @@ loadGame = function() {
       'images/tutorials/6.png',
       'images/tutorials/7.png',
       'images/tutorials/8.png',
+      
       'images/sounds/boop.wav',
       'images/sounds/eww.wav',
       'images/sounds/mixing.wav',
@@ -75,17 +81,17 @@ loadGame = function() {
       recipebook  = initRecipebook();
       ingredients = initIngredients();
 
-      var startMenu = startGame();
-      var level = new Level(5);
-      var shop = new Shop(level);
+      var splash  = new Splash();//startGame();
+      var level   = new Level(5);
+      var shop    = new Shop(level);
 
       // Push the scenes
       game.pushScene(level);
       game.pushScene(shop);
-      game.pushScene(startMenu);
+      game.pushScene(splash);
 
-      this.bgm = game.assets['images/sounds/background.wav'];
-      this.bgm.play();
+      // this.bgm = game.assets['images/sounds/background.wav'];
+      // this.bgm.play();
     };
 
     game.start();

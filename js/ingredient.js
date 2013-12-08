@@ -11,9 +11,9 @@ Ingredient = Class.create(Sprite, {
       this.amount = 0;
 
       this.label = new Label('');
-      this.label.font = 'bold 18px Arial';
+      this.label.font = 'bold 36px ' + font.plain;
       this.label.x = x;
-      this.label.y = y;
+      this.label.y = y-10;
 
       this.clicked = false;
    },

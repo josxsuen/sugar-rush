@@ -22,7 +22,7 @@ Shop = Class.create(Scene, {
       shopLabel.y = 20;
 
       // Level number
-      var levelNum = new Label('Level ' + this.level.num);
+      var levelNum = new Label(this.level.num + ' kids');
       levelNum.font = '40px ' + font.plain;
       levelNum.color = 'black';
       levelNum.x = 20;
@@ -64,15 +64,16 @@ Shop = Class.create(Scene, {
 initShopItems = function() {
    var shopItems = [];
 
-   shopItems.push(new CakeBatterShop());
-   shopItems.push(new CookieDoughShop());
-   shopItems.push(new IcingShop());
-   shopItems.push(new IceCreamShop());
-   shopItems.push(new VanillaShop());
-   shopItems.push(new ChocolateShop());
-   shopItems.push(new CreamShop());
-   shopItems.push(new StrawberryShop());
-   shopItems.push(new PieCrustShop());
+   shopItems.push(new CakeBatterShop(50, 200, 50));
+   shopItems.push(new CookieDoughShop(50, 340, 50));
+   shopItems.push(new PieCrustShop(50, 480, 50));
+   shopItems.push(new IceCreamShop(50, 620, 50));
+   shopItems.push(new CreamShop(50, 760, 50));
+
+   shopItems.push(new IcingShop(370, 200, 50));
+   shopItems.push(new ChocolateShop(370, 340, 50));
+   shopItems.push(new VanillaShop(370, 480, 50));
+   shopItems.push(new StrawberryShop(370, 620, 50));
 
    return shopItems;
 };
