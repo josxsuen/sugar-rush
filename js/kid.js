@@ -29,14 +29,10 @@ Kid = Class.create(Sprite, {
       Sprite.call(this, 119, 200);
       this.happiness = 100; //100 * game.fps * duration
       this.tolerance = 1;        //{1, 1/3, 2/3}
-      this.timerFlag = false;
       this.timer = 100;
       this.currentState = 'WAITING';
       this.states = ['WAITING', 'EXITING', 'ENTERING', 'EATING'];
-      this.bubble;
-      this.desire;
       this.countTimer = 500;
-
       this.spotX = spotX;
 
       this.preference = recipebook['ChocolateCake'];
@@ -44,11 +40,12 @@ Kid = Class.create(Sprite, {
       this.bubble = null;
       this.timer = 100;
       this.image = game.assets['images/kid.png'];
+      this.imageFrame = Math.floor(Math.random()*5) * 5;
    },
 
    onenterframe: function() {
       this.countTimer--;
-      if (this.timerFlag || this.countTimer <= 0) {
+      if (this.countTimer <= 0) {
          this.moveBy(15, 0); //runs off screen
          if (this.x > this.scene.width + this.width/2)
             this.scene.removeChild(this);
@@ -118,7 +115,7 @@ Kid = Class.create(Sprite, {
    
    onaddedtoscene: function() {
       this.currentState = 'ENTERING';
-      this.frame = Math.floor(Math.random()*5) * 5;;
+      this.frame = this.imageFrame;
       this.x = -50;
       this.y = 120;
    },
@@ -152,10 +149,10 @@ Kid = Class.create(Sprite, {
                isLiked = true;
                game.assets['images/sounds/mmm.wav'].play();
                eatDessert(this.scene, i);
-               this.frame = 4;
+               this.frame = this.imageFrame+4;
             }
             else {
-               this.frame = 3;
+               this.frame = this.imageFrame+3;
             }
             break;
          }
