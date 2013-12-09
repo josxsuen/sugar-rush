@@ -2,6 +2,9 @@ Level = Class.create(Scene, {
    initialize: function(num) {
       Scene.call(this);
 
+	  this.bgm = game.assets['sounds/background.wav'];
+      this.bgm.play();
+	  
       // Set number of Kids to feed
       this.num = num;
 
@@ -9,6 +12,13 @@ Level = Class.create(Scene, {
       var background = new Sprite(640, 960);
       background.image = game.assets['images/background.png'];
       this.addChild(background);
+	  
+	  this.health = new Health();
+      this.health.addEventListener('enterframe',function(){ 
+         this.width = 2 * player.health;
+      });
+      this.addChild(this.health.backgroundhealth);
+      this.addChild(this.health);
 
       // Add ingredients
       for (var i in ingredients) {
@@ -50,6 +60,12 @@ Level = Class.create(Scene, {
          else 
             this.num++;
       }
+	  
+	  if (this.bgm.currentTime >= this.bgm.duration)
+         this.bgm.play();
+
+      if (this.age % 10 === 0)
+         player.addHealth(-1);
    },
 
    addKid: function(slot) {

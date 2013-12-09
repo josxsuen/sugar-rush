@@ -53,6 +53,8 @@ loadGame = function() {
    game.fps = 30;
 
    game.preload(
+	  'images/healthbackground.png',
+	  'images/healthbar.png',
       'images/background.png',
       'images/bowl.png',
       'images/bowlselect.png',
@@ -98,15 +100,11 @@ loadGame = function() {
       for (var i in recipebook.valueOf()) {
          arr.push(i);
       }
-      console.log(arr);
       
       // Push the scenes
       game.pushScene(level);
       game.pushScene(shop);
       game.pushScene(splash);
-
-      // this.bgm = game.assets['images/sounds/background.wav'];
-      // this.bgm.play();
     };
 
     game.start();

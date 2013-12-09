@@ -15,4 +15,14 @@ Player = Class.create({
          PieCrust:   0
       }
    },
+   
+   addHealth: function(addNumber) {
+      player.health += addNumber;
+      if (player.health >= 100)
+         player.health = 100;
+      if (player.health <= 0) {
+         //endgame
+         player.health = 0;
+      }
+   }
 });

@@ -2,7 +2,7 @@
 Kid = Class.create(Sprite, {
    initialize: function(slotX) {
       Sprite.call(this, 119, 200);
-      this.happiness = 100 * 10; //100% * duration
+      this.happiness = 500; //100% * duration
       this.tolerance = 1;        //{1, 1/3, 2/3}
       this.currentState = 'WAITING';
       this.states = ['WAITING', 'EXITING', 'ENTERING', 'EATING'];
@@ -17,7 +17,7 @@ Kid = Class.create(Sprite, {
       this.getRandomRecipe();
    },
 
-   onenterframe: function() {
+   onenterframe: function() { 
       switch(this.currentState) {
          case 'WAITING':
             if (this.bubble !== null) {
@@ -48,8 +48,11 @@ Kid = Class.create(Sprite, {
                }
             }
             
-            if (!this.waitTimer--)
+            if (!this.waitTimer--) {
+               player.addHealth(-10);
+               game.assets['sounds/eww.wav'].play();
                this.currentState = 'EXITING';
+			   }
             else if (this.waitTimer < this.happiness*0.05)
                this.frame = this.imageFrame+3;              
             else if (this.waitTimer < this.happiness*0.35)
@@ -123,10 +126,12 @@ Kid = Class.create(Sprite, {
          if (match > 0) {
             game.assets['sounds/mmm.wav'].play();
             this.frame = this.imageFrame+4;
+			player.addHealth(10);
          }
          else {
             game.assets['sounds/eww.wav'].play();
             this.frame = this.imageFrame+3;
+			player.addHealth(-10);
          }
          this.currentState = 'EXITING';
       }
