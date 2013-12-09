@@ -126,7 +126,8 @@ Kid = Class.create(Sprite, {
          if (match > 0) {
             game.assets['sounds/mmm.wav'].play();
             this.frame = this.imageFrame+4;
-			player.addHealth(10);
+            
+            player.addHealth(match*5);
          }
          else {
             game.assets['sounds/eww.wav'].play();

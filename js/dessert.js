@@ -70,7 +70,7 @@ StrawShortCake = Class.create(Dessert, {
       Dessert.call(this);
       this.insides['CakeBatter'] = 1;
       this.insides['Strawberry'] = 1;
-      this.insides['Cream'] = 1;
+      this.insides['Icing'] = 1;
       this.frame = 3;
    }
 });
