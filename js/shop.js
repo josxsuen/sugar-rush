@@ -64,7 +64,7 @@ Shop = Class.create(Scene, {
       this.addChild(currentMoney);
 
       // Mute button
-      this.mute = new Mute();
+      this.mute = new Mute(100, 880);
       this.addChild(this.mute);
 
       // Add recipebook button

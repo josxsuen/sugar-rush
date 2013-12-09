@@ -23,9 +23,14 @@ Splash = Class.create(Scene, {
          game.pushScene(new Tutorial());
       });
 
+      // Mute button
+      this.mute = new Mute(540, 880);
+      
+
       this.addChild(background);
       this.addChild(playButton);
       this.addChild(tutorialButton);
+      this.addChild(this.mute);
    },
 });
 

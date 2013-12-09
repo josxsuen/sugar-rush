@@ -25,7 +25,7 @@ Level = Class.create(Scene, {
       this.addChild(this.score);
 
       // Mute button
-      this.mute = new Mute();
+      this.mute = new Mute(100, 880);
       this.addChild(this.mute);
 
       // Add ingredients

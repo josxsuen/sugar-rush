@@ -1,11 +1,11 @@
 this.globalVolume = 1; // use to mute sound effects
 
 Mute = Class.create(Sprite, {
-	initialize: function() {
+	initialize: function(x, y) {
 		Sprite.call(this, 60, 72);
 		this.image = game.assets['images/volumebuttons.png'];
-		this.x = 100;
-		this.y = 880;
+		this.x = x;
+		this.y = y;
 		this.frame = game.bgm.volume === maxVolume ? 0 : 1;
 	},
 

@@ -2,7 +2,7 @@
 Kid = Class.create(Sprite, {
    initialize: function(slotX) {
       Sprite.call(this, 119, 200);
-      this.happiness = 700; //100% * duration
+      this.happiness = 800; //100% * duration
       this.tolerance = 1;        //{1, 1/3, 2/3}
       this.currentState = 'WAITING';
       this.states = ['WAITING', 'EXITING', 'ENTERING', 'EATING'];
