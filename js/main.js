@@ -80,6 +80,9 @@ loadGame = function() {
       'images/tutorials/6.png',
       'images/tutorials/7.png',
       'images/tutorials/8.png',
+      'images/tutorials/9.png',
+      'images/tutorials/10.png',
+      'images/tutorials/11.png',
       'images/volumebuttons.png',
 
       'sounds/boop.wav',

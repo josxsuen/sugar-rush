@@ -76,6 +76,6 @@ Tutorial = Class.create(Scene, {
       this.slide.image = game.assets['images/tutorials/' + this.num + '.png'];
 
       this.prevButton.visible = this.num !== 1;
-      this.nextButton.visible = this.num !== 8;
+      this.nextButton.visible = this.num !== 11;
    }
 });
