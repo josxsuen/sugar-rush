@@ -1,5 +1,5 @@
 GoodJob = Class.create(Scene, {
-   initialize: function(levelScore, totalScore) {
+   initialize: function(levelScore, score) {
       Scene.call(this);
       this.backgroundColor = color.lightGreen;
 
@@ -19,22 +19,21 @@ GoodJob = Class.create(Scene, {
       next.width = 640;
       next.y = 760;
 
-      next.addEventListener('touchend', function() {
+      next.ontouchend = function() {
          game.popScene();
-         // gen a new level
-      });
+      };
 
       this.addChild(goodjobLabel);
       this.addChild(next);
 
       // Show final game stats
       this.addStat('LEVEL SCORE', levelScore, 340);
-      this.addStat('FINAL SCORE', totalScore, 520);
+      this.addStat('FINAL SCORE', score, 520);
    },
 
    addStat: function(header, num, y) {
       var headerLabel = new Label(header);
-      var numLabel = new Label(num);
+      var numLabel = new Label('' + num);
 
       headerLabel.font = '54px ' + font.plain;
       numLabel.font = '84px ' + font.plain;

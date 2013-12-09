@@ -18,9 +18,6 @@ Level = Class.create(Scene, {
 
       // Health bar
 	   this.health = new Health();
-      this.health.addEventListener('enterframe', function(){ 
-         this.width = 3 * player.health;
-      });
       this.addChild(this.health.backgroundhealth);
       this.addChild(this.health);
 
@@ -109,18 +106,25 @@ nextLevel = Class.create(Sprite, {
    
    onenterframe: function() {
       var num = 0;
+
       for (var i in this.level.slot) {
          if (!this.level.slot[i]) {
             num++;
          }
       }
-      if (num == 3 && this.level.age >= 100) {
+
+      if (num === 3 && this.level.age >= 100) {
          player.health = 100;
+         player.score += this.level.levelScore;
+         var endScene = new GoodJob(this.level.levelScore, player.score);
+
          this.level = new Level(this.level.numKids + 5);
+
          var shop = new Shop(this.level);
          game.popScene();
          game.pushScene(this.level);
          game.pushScene(shop);
+         game.pushScene(endScene);
       }
    }
 });

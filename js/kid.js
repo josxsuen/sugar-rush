@@ -125,6 +125,7 @@ Kid = Class.create(Sprite, {
             this.frame = this.imageFrame+4;
             
             player.addHealth(match*5);
+            this.scene.levelScore += 10 * match;
          }
          else {
             if (globalVolume === 1)

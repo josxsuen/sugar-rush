@@ -19,10 +19,18 @@ Gameover = Class.create(Scene, {
       restart.width = 640;
       restart.y = 760;
 
-      restart.addEventListener('touchend', function() {
+      restart.ontouchend = function() {
+         player.reset();
+
+         var splash  = new Splash();
+         var level   = new Level(5);
+         var shop    = new Shop(level);
+
          game.popScene();
-         game.pushScene(new Splash());
-      });
+         game.pushScene(level);
+         game.pushScene(shop);
+         game.pushScene(splash);
+      };
 
       this.addChild(gameoverLabel);
       this.addChild(restart);
@@ -33,7 +41,7 @@ Gameover = Class.create(Scene, {
 
    addStat: function(header, num, y) {
       var headerLabel = new Label(header);
-      var numLabel = new Label(num);
+      var numLabel = new Label('' + num);
 
       headerLabel.font = '54px ' + font.plain;
       numLabel.font = '84px ' + font.plain;

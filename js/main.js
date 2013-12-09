@@ -109,8 +109,6 @@ loadGame = function() {
       game.pushScene(level);
       game.pushScene(shop);
       game.pushScene(splash);
-      // game.pushScene(new Gameover(20000));
-      // game.pushScene(new GoodJob(20000, 10000034));
     };
 
     game.start();
