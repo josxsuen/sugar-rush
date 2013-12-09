@@ -54,19 +54,13 @@ Bowl = Class.create(Sprite, {
          this.frame = 3;
       }
       else {
-         var x = this.x;
-         var y = this.y;
-
          // Add dessert
          var newDessert = new dessert.constructor;
-         newDessert.x = x;
-         newDessert.y = y;
-         this.scene.desserts.push(newDessert);
+         newDessert.x = this.x;
+         newDessert.y = this.y;
          this.scene.addChild(newDessert);
 
          // Remove bowl
-         var ndx = this.scene.bowls.indexOf(pendingObject);
-         this.scene.bowls.splice(ndx, 1);
          this.scene.removeChild(this);
       }
    },

@@ -2,7 +2,8 @@ Level = Class.create(Scene, {
    initialize: function(num) {
       Scene.call(this);
 
-	  this.bgm = game.assets['sounds/background.wav'];
+	   this.bgm = game.assets['sounds/background.wav'];
+      this.bgm.volume = 0.75;
       this.bgm.play();
 	  
       // Set number of Kids to feed
@@ -13,8 +14,8 @@ Level = Class.create(Scene, {
       background.image = game.assets['images/background.png'];
       this.addChild(background);
 	  
-	  this.health = new Health();
-      this.health.addEventListener('enterframe',function(){ 
+	   this.health = new Health();
+      this.health.addEventListener('enterframe', function(){ 
          this.width = 2 * player.health;
       });
       this.addChild(this.health.backgroundhealth);
@@ -26,21 +27,12 @@ Level = Class.create(Scene, {
       }
 
       // Add bowls
-      this.bowls = [];
-      this.bowls.push(new Bowl( 50, 340, game.recipebook, game.player));
-      this.bowls.push(new Bowl(250, 340, game.recipebook, game.player));
-      this.bowls.push(new Bowl(450, 340, game.recipebook, game.player));
-
-      for (var i in this.bowls) {
-         this.addChild(this.bowls[i]);
-      }
-
-      // Room for finished desserts
-      this.desserts = [];
+      this.addChild(new Bowl( 50, 340, game.recipebook, game.player));
+      this.addChild(new Bowl(250, 340, game.recipebook, game.player));
+      this.addChild(new Bowl(450, 340, game.recipebook, game.player));
 
       // Add trashcan
-      this.trashcan = new Trash();
-      this.addChild(this.trashcan);
+      this.addChild(new Trash());
 
       // Add recipebook button
       this.addChild(new RecipeBookEnter());
@@ -86,8 +78,6 @@ Level = Class.create(Scene, {
    },
 
    addBowl: function(x, y) {
-      var newBowl = new Bowl(x, y);
-      this.bowls.push = newBowl;
-      this.addChild(newBowl);
+      this.addChild(new Bowl(x, y));
    }
 });

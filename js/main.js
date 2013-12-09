@@ -11,9 +11,11 @@ this.ingredients  = null;
 
 this.color = {
    black:         '#000000',
+   darkBlue:      '#8897BF',
    green:         '#6dc647',
    lightBlue:     '#63bfec',
    lightBrown:    '#ecbe7b',
+   lightGreen:    '#D0E8B3',
    lightRed:      '#f8a286',
    lightYellow:   '#FAF8CD',
    orange:        '#fdbb12',
@@ -92,7 +94,7 @@ loadGame = function() {
       ingredients = initIngredients();
       arr         = [];
 
-      var splash  = new Splash();//startGame();
+      var splash  = new Splash();
       var level   = new Level(5);
       var shop    = new Shop(level);
 
@@ -144,17 +146,3 @@ initIngredients = function() {
       Strawberry:    new Strawberry()
    };
 };
-
-// popup = function() {
-//    var box = new Scene();
-//    box.text = '';
-
-//    box.addEventListener('touchend', function() {
-//       game.popScene();
-//    });
-
-//    var label = new Label(box.text);
-//    box.addChild(label);
-
-//    game.pushScene(box);
-// };

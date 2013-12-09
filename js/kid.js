@@ -114,13 +114,8 @@ Kid = Class.create(Sprite, {
          }
 
          // Remove dessert and add bowl
-         var ndx = this.scene.bowls.indexOf(pendingObject);
          this.scene.removeChild(pendingObject);
-         this.scene.desserts.splice(ndx, 0);
-
-         var x = pendingObject.x;
-         var y = pendingObject.y;
-         this.scene.addBowl(x, y);
+         this.scene.addBowl(pendingObject.x, pendingObject.y);
 
          // Kid leaves happy or sad
          if (match > 0) {
