@@ -74,6 +74,7 @@ loadGame = function() {
       'images/splashbuttons.png',
       'images/trash.png',
       'images/tutorialbuttons.png',
+      'images/tutorials/0.png',
       'images/tutorials/1.png',
       'images/tutorials/2.png',
       'images/tutorials/3.png',
@@ -91,8 +92,7 @@ loadGame = function() {
       'sounds/eww.wav',
       'sounds/mixing.wav',
       'sounds/mmm.wav',
-      'sounds/background.wav',
-      'images/bomb.png'
+      'sounds/background.wav'
    );
 
    game.onload = function() {

@@ -25,7 +25,6 @@ Splash = Class.create(Scene, {
 
       // Mute button
       this.mute = new Mute(540, 880);
-      
 
       this.addChild(background);
       this.addChild(playButton);
@@ -49,7 +48,7 @@ Tutorial = Class.create(Scene, {
    initialize: function() {
       Scene.call(this);
       this.backgroundColor = 'rgba(0,0,0,0.8)';
-      this.num = 1;
+      this.num = 0;
 
       this.exitButton = tutorialbutton(0,  10, 20);
       this.exitButton.addEventListener('touchend', function() {
@@ -67,7 +66,7 @@ Tutorial = Class.create(Scene, {
       });
 
       this.slide = new Sprite(540, 810);
-      this.slide.image = game.assets['images/tutorials/1.png'];
+      this.slide.image = game.assets['images/tutorials/0.png'];
       this.slide.x = 50;
       this.slide.y = 120;
 
@@ -80,7 +79,7 @@ Tutorial = Class.create(Scene, {
    onenterframe: function() {
       this.slide.image = game.assets['images/tutorials/' + this.num + '.png'];
 
-      this.prevButton.visible = this.num !== 1;
+      this.prevButton.visible = this.num !== 0;
       this.nextButton.visible = this.num !== 11;
    }
 });
