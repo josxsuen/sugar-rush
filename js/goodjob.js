@@ -28,7 +28,7 @@ GoodJob = Class.create(Scene, {
 
       // Show final game stats
       this.addStat('LEVEL SCORE', levelScore, 340);
-      this.addStat('FINAL SCORE', score, 520);
+      this.addStat('TOTAL SCORE', score, 520);
    },
 
    addStat: function(header, num, y) {
