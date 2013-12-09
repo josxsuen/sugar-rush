@@ -21,6 +21,9 @@ Level = Class.create(Scene, {
       this.addChild(this.health.backgroundhealth);
       this.addChild(this.health);
 
+      this.mute = new Mute(this.bgm);
+      this.addChild(this.mute);
+
       // Add ingredients
       for (var i in ingredients) {
          this.addChild(ingredients[i]);

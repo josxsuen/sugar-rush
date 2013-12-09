@@ -85,7 +85,8 @@ loadGame = function() {
       'sounds/eww.wav',
       'sounds/mixing.wav',
       'sounds/mmm.wav',
-      'sounds/background.wav'
+      'sounds/background.wav',
+      'images/bomb.png'
    );
 
    game.onload = function() {

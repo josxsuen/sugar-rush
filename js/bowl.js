@@ -49,7 +49,8 @@ Bowl = Class.create(Sprite, {
             break;
          }
       }
-
+      if (globalVolume === 1)
+         game.assets['sounds/mixing.wav'].play();
       if (badMix) {
          this.frame = 3;
       }

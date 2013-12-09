@@ -50,7 +50,8 @@ Kid = Class.create(Sprite, {
             
             if (!this.waitTimer--) {
                player.addHealth(-10);
-               game.assets['sounds/eww.wav'].play();
+               if (globalVolume === 1)
+                  game.assets['sounds/eww.wav'].play();
                this.currentState = 'EXITING';
 			   }
             else if (this.waitTimer < this.happiness*0.05)
@@ -119,13 +120,15 @@ Kid = Class.create(Sprite, {
 
          // Kid leaves happy or sad
          if (match > 0) {
-            game.assets['sounds/mmm.wav'].play();
+            if (globalVolume === 1)
+               game.assets['sounds/mmm.wav'].play();
             this.frame = this.imageFrame+4;
             
             player.addHealth(match*5);
          }
          else {
-            game.assets['sounds/eww.wav'].play();
+            if (globalVolume === 1)
+               game.assets['sounds/eww.wav'].play();
             this.frame = this.imageFrame+3;
 			player.addHealth(-10);
          }
