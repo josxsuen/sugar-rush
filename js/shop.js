@@ -10,7 +10,8 @@ Shop = Class.create(Scene, {
 
       for (var i in this.shopItems) {
          this.addChild(this.shopItems[i]);
-         this.shopItems[i].amount += 10;
+         var curName = this.shopItems[i].name;
+         this.shopItems[i].amount += (2 * this.level.num) - ingredients[curName].amount;
       }
 
       player.money += (level.num*500);
