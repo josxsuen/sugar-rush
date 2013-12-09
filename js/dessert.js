@@ -1,5 +1,3 @@
-// Dessert types
-
 Dessert = Class.create(Sprite, {
    initialize: function() {
       Sprite.call(this, 120, 110);
@@ -15,8 +13,6 @@ Dessert = Class.create(Sprite, {
          PieCrust:   0
       };
       this.image = game.assets['images/dessert.png'];
-      this.feed = false;
-      this.clicked = false;
    },
 
    onenterframe: function() {

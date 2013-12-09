@@ -1,5 +1,3 @@
-// Ingredient
-
 Ingredient = Class.create(Sprite, {
    initialize: function(name, x, y) {
       Sprite.call(this, 100, 100);
@@ -14,8 +12,6 @@ Ingredient = Class.create(Sprite, {
       this.label.font = 'bold 36px ' + font.plain;
       this.label.x = x;
       this.label.y = y-10;
-
-      this.clicked = false;
    },
 
    add: function() {
@@ -55,8 +51,6 @@ Ingredient = Class.create(Sprite, {
       this.scene.addChild(this.label);
    }
 });
-
-// Ingredient types
 
 CakeBatter = Class.create(Ingredient, {
    initialize: function() {

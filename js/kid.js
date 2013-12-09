@@ -1,4 +1,3 @@
-
 Kid = Class.create(Sprite, {
    initialize: function(slotX) {
       Sprite.call(this, 119, 200);

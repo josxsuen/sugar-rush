@@ -2,7 +2,6 @@ RecipeBook = Class.create(Sprite, {
    initialize: function() {
       Sprite.call(this, 640, 960);
       this.image = game.assets['images/recipebook.png'];
-      //game.pause();
    }
 });
 

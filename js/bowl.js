@@ -6,8 +6,6 @@ Bowl = Class.create(Sprite, {
       this.y = y;
       this.frame = 0;
 
-      // this.trashing = false;
-
       this.contents = {
          CakeBatter: 0,
          CookieDough:0,
@@ -22,7 +20,6 @@ Bowl = Class.create(Sprite, {
 
       this.count = 0;
       this.open = true;
-      this.clicked = false;
    },
 
    onenterframe: function() {

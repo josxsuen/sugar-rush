@@ -7,12 +7,13 @@ Player = Class.create({
    
    addHealth: function(addNumber) {
       player.health += addNumber;
-      if (player.health >= 100)
+      
+      if (player.health >= 100) {
          player.health = 100;
+      }
+
       if (player.health <= 0) {
          player.health = 0;
-
-         
       }
    },
 

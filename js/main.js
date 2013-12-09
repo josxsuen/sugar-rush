@@ -122,10 +122,10 @@ loadGame = function() {
       game.onenterframe = function() {
          if (game.bgm.currentTime >= game.bgm.duration)
             game.bgm.play();
-      }
-    };
+      };
+   };
 
-    game.start();
+   game.start();
 };
 
 initRecipebook = function() {
