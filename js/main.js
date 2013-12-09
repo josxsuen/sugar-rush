@@ -55,14 +55,14 @@ loadGame = function() {
    game.fps = 30;
 
    game.preload(
-	  'images/healthbackground.png',
-	  'images/healthbar.png',
       'images/background.png',
       'images/bowl.png',
       'images/bowlselect.png',
       'images/bubble.png',
       'images/dessert.png',
       'images/dessertselect.png',
+      'images/healthbar.png',
+      'images/healthbackground.png',
       'images/ingredient.png',
       'images/ingredientselect.png',
       'images/kid.png',
@@ -80,6 +80,7 @@ loadGame = function() {
       'images/tutorials/6.png',
       'images/tutorials/7.png',
       'images/tutorials/8.png',
+      'images/volumebuttons.png',
 
       'sounds/boop.wav',
       'sounds/eww.wav',
@@ -108,6 +109,8 @@ loadGame = function() {
       game.pushScene(level);
       game.pushScene(shop);
       game.pushScene(splash);
+      // game.pushScene(new Gameover(20000));
+      // game.pushScene(new GoodJob(20000, 10000034));
     };
 
     game.start();

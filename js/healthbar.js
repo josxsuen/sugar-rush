@@ -1,20 +1,18 @@
 Health = Class.create(Sprite, {
 	initialize: function () {
-		Sprite.call(this, 200, 50);
+		Sprite.call(this, 300, 25);
 	    this.image = game.assets['images/healthbar.png'];
 	    this.x = 200;
-	    this.y = 900;
+	    this.y = 920;
 
 
-	    this.backgroundhealth = new Sprite(200, 50);
+	    this.backgroundhealth = new Sprite(300, 25);
 	    this.backgroundhealth.image = game.assets['images/healthbackground.png'];
 	    this.backgroundhealth.x = 200;
-	    this.backgroundhealth.y = 900;
+	    this.backgroundhealth.y = 920;
 	},
 
 	oneneterframe: function() {
-		console.log('hi');
-		this.width = 2 * player.health;
-		console.log(2*player.health);
+		this.width = player.health / 100 * 300;
 	}
 });

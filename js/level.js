@@ -8,12 +8,14 @@ Level = Class.create(Scene, {
 	  
       // Set number of Kids to feed
       this.num = num;
+      this.levelScore = 0;
 
       // Add background
       var background = new Sprite(640, 960);
       background.image = game.assets['images/background.png'];
       this.addChild(background);
-	  
+
+      // Health bar
 	   this.health = new Health();
       this.health.addEventListener('enterframe', function(){ 
          this.width = 2 * player.health;
@@ -21,6 +23,14 @@ Level = Class.create(Scene, {
       this.addChild(this.health.backgroundhealth);
       this.addChild(this.health);
 
+      // Score
+      this.score = new Label();
+      this.score.font = '48px ' + font.plain;
+      this.score.x = 200;
+      this.score.y = 860;
+      this.addChild(this.score);
+
+      // Mute button
       this.mute = new Mute(this.bgm);
       this.addChild(this.mute);
 
@@ -56,11 +66,13 @@ Level = Class.create(Scene, {
             this.num++;
       }
 	  
-	  if (this.bgm.currentTime >= this.bgm.duration)
+	   if (this.bgm.currentTime >= this.bgm.duration)
          this.bgm.play();
 
       if (this.age % 10 === 0)
          player.addHealth(-1);
+
+      this.score.text = 'Score: ' + this.levelScore;
    },
 
    addKid: function(slot) {

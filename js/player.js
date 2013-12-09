@@ -2,6 +2,7 @@ Player = Class.create({
    initialize: function() {
       this.money = 0;
       this.health = 100;
+      this.score = 0;
       
       this.items = {
          CakeBatter: 0,
