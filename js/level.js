@@ -2,10 +2,6 @@ Level = Class.create(Scene, {
    initialize: function(num) {
       Scene.call(this);
 
-	   this.bgm = game.assets['sounds/background.wav'];
-      this.bgm.volume = 0.75;
-      this.bgm.play();
-	  
       // Set number of Kids to feed
       this.num = num;
       this.levelScore = 0;
@@ -29,7 +25,7 @@ Level = Class.create(Scene, {
       this.addChild(this.score);
 
       // Mute button
-      this.mute = new Mute(this.bgm);
+      this.mute = new Mute();
       this.addChild(this.mute);
 
       // Add ingredients
@@ -47,10 +43,10 @@ Level = Class.create(Scene, {
 
       // Add recipebook button
       this.addChild(new RecipeBookEnter());
-      
+
       // Add Slots
       this.slot = [];
-      
+
       var next = new nextLevel(this);
       this.addChild(next);
    },
@@ -63,12 +59,12 @@ Level = Class.create(Scene, {
             this.slot[1] = this.addKid(1);
          else if (!this.slot[2])
             this.slot[2] = this.addKid(2);
-         else 
+         else
             this.num++;
       }
-	  
-	   if (this.bgm.currentTime >= this.bgm.duration)
-         this.bgm.play();
+
+	   // if (this.bgm.currentTime >= this.bgm.duration)
+    //      this.bgm.play();
 
       if (this.age % 10 === 0)
          player.addHealth(-1);
@@ -79,7 +75,7 @@ Level = Class.create(Scene, {
    addKid: function(slot) {
       var kid;
       var slotX;
-      
+
       switch (slot) {
          case 0: slotX =  50; break;
          case 1: slotX = 250; break;
@@ -87,9 +83,9 @@ Level = Class.create(Scene, {
       }
 
       kid = new Kid(slotX);
-      
+
       this.addChild(kid);
-      
+
       return kid;
    },
 
@@ -103,7 +99,7 @@ nextLevel = Class.create(Sprite, {
       Sprite.call(this, 0, 0);
       this.level = map;
    },
-   
+
    onenterframe: function() {
       var num = 0;
 
@@ -126,10 +122,11 @@ nextLevel = Class.create(Sprite, {
          game.pushScene(shop);
          game.pushScene(endScene);
       }
-      
+
       if (player.health <= 0) {
+         player.score += this.level.levelScore;
          game.popScene();
-         game.pushScene(new Gameover(this.level.levelScore + player.score));
+         game.pushScene(new Gameover(player.score));
       }
    }
 });

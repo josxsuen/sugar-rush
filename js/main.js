@@ -9,6 +9,8 @@ this.player       = null;
 this.recipebook   = null;
 this.ingredients  = null;
 
+this.maxVolume = 0.75;
+
 this.color = {
    black:         '#000000',
    darkBlue:      '#8897BF',
@@ -99,6 +101,10 @@ loadGame = function() {
       ingredients = initIngredients();
       arr         = [];
 
+      game.bgm = game.assets['sounds/background.wav'];
+      game.bgm.volume = maxVolume;
+      game.bgm.play();
+
       var splash  = new Splash();
       var level   = new Level(5);
       var shop    = new Shop(level);
@@ -107,11 +113,16 @@ loadGame = function() {
       for (var i in recipebook.valueOf()) {
          arr.push(i);
       }
-      
+
       // Push the scenes
       game.pushScene(level);
       game.pushScene(shop);
       game.pushScene(splash);
+
+      game.onenterframe = function() {
+         if (game.bgm.currentTime >= game.bgm.duration)
+            game.bgm.play();
+      }
     };
 
     game.start();
