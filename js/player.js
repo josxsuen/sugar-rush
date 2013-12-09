@@ -12,8 +12,7 @@ Player = Class.create({
       if (player.health <= 0) {
          player.health = 0;
 
-         game.popScene();
-         game.pushScene(new Gameover(player.score));
+         
       }
    },
 

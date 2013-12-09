@@ -126,5 +126,10 @@ nextLevel = Class.create(Sprite, {
          game.pushScene(shop);
          game.pushScene(endScene);
       }
+      
+      if (player.health <= 0) {
+         game.popScene();
+         game.pushScene(new Gameover(this.level.levelScore + player.score));
+      }
    }
 });
