@@ -26,9 +26,9 @@ Bowl = Class.create(Sprite, {
    },
 
    onenterframe: function() {
-      if (this.count === 3) {
+      if (this.open && this.count === 3) {
          this.checkRecipe();
-         //this.open = false;
+         this.open = false;
       }
       this.image = game.assets['images/bowl' + (pendingObject === this ? 'select.png' : '.png')];
    },
