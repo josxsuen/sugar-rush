@@ -9,6 +9,7 @@ Level = Class.create(Scene, {
       // Set number of Kids to feed
       this.num = num;
       this.levelScore = 0;
+      this.numKids = num;
 
       // Add background
       var background = new Sprite(640, 960);
@@ -18,7 +19,7 @@ Level = Class.create(Scene, {
       // Health bar
 	   this.health = new Health();
       this.health.addEventListener('enterframe', function(){ 
-         this.width = 2 * player.health;
+         this.width = 3 * player.health;
       });
       this.addChild(this.health.backgroundhealth);
       this.addChild(this.health);
@@ -52,6 +53,9 @@ Level = Class.create(Scene, {
       
       // Add Slots
       this.slot = [];
+      
+      var next = new nextLevel(this);
+      this.addChild(next);
    },
 
    onenterframe: function() {
@@ -94,5 +98,29 @@ Level = Class.create(Scene, {
 
    addBowl: function(x, y) {
       this.addChild(new Bowl(x, y));
+   }
+});
+
+nextLevel = Class.create(Sprite, {
+   initialize: function(map) {
+      Sprite.call(this, 0, 0);
+      this.level = map;
+   },
+   
+   onenterframe: function() {
+      var num = 0;
+      for (var i in this.level.slot) {
+         if (!this.level.slot[i]) {
+            num++;
+         }
+      }
+      if (num == 3 && this.level.age >= 100) {
+         player.health = 100;
+         this.level = new Level(this.level.numKids + 5);
+         var shop = new Shop(this.level);
+         game.popScene();
+         game.pushScene(this.level);
+         game.pushScene(shop);
+      }
    }
 });

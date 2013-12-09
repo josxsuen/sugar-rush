@@ -13,6 +13,6 @@ Health = Class.create(Sprite, {
 	},
 
 	oneneterframe: function() {
-		this.width = player.health / 100 * 300;
+		this.width = player.health * 3;
 	}
 });
