@@ -10,7 +10,7 @@ Kid = Class.create(Sprite, {
 
       this.preference = recipebook[this.getRandomRecipe()];
       this.bubble = null;
-      this.bubbleTimer = 100;
+      this.bubbleTimer = 0;
       this.waitTimer = this.happiness;
       this.image = game.assets['images/kid.png'];
       this.imageFrame = Math.floor(Math.random()*5) * 5;
