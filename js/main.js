@@ -92,7 +92,7 @@ loadGame = function() {
       'sounds/eww.wav',
       'sounds/mixing.wav',
       'sounds/mmm.wav',
-      'sounds/background.wav'
+      'sounds/background.mp3'
    );
 
    game.onload = function() {
@@ -101,7 +101,7 @@ loadGame = function() {
       ingredients = initIngredients();
       arr         = [];
 
-      game.bgm = game.assets['sounds/background.wav'];
+      game.bgm = game.assets['sounds/background.mp3'];
       game.bgm.volume = maxVolume;
       game.bgm.play();
 
