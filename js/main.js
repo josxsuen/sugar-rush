@@ -101,7 +101,7 @@ loadGame = function() {
       ingredients = initIngredients();
       arr         = [];
 
-      game.bgm = game.assets['sounds/background.mp3'];
+      game.bgm = enchant.DOMSound.load('sounds/background.mp3');
       game.bgm.volume = maxVolume;
       game.bgm.play();
 
@@ -119,9 +119,11 @@ loadGame = function() {
       game.pushScene(shop);
       game.pushScene(splash);
 
-      game.onenterframe = function() {
-         if (game.bgm.currentTime >= game.bgm.duration)
-            game.bgm.play();
+      game.bgm.onload = function() {
+         game.onenterframe = function() {
+            if (game.bgm.currentTime >= game.bgm.duration)
+               game.bgm.play();
+         };
       };
    };
 
